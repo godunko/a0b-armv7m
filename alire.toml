@@ -15,4 +15,5 @@ tags = ["embedded"]
 disabled = true
 
 [[depends-on]]
+gnat_arm_elf = "*"
 a0b_base = "~0.1.0"
