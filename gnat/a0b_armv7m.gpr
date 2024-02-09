@@ -1,0 +1,41 @@
+--
+--  Copyright (C) 2024, Vadim Godunko
+--
+--  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+--
+
+with "a0b_base";
+with "a0b_common";
+
+project A0B_ARMv7M is
+
+   --  Detect particular ARMv7 family from the name of the generic runtime.
+
+   case A0B_Common.Runtime_Ada is
+      when "light-cortex-m3" =>
+         null;
+
+      when "light-cortex-m4" =>
+         null;
+
+      when "light-cortex-m4f" =>
+         null;
+
+      when "light-cortex-m7f" =>
+         null;
+
+      when "light-cortex-m7df" =>
+         null;
+
+      when others =>
+         null;
+   end case;
+
+   for Source_Dirs use ("../source");
+   for Object_Dir use "../.objs/" & A0B_Common.Object_Dir_Suffix;
+
+   package Compiler is
+      for Switches ("Ada") use A0B_Common.Compiler_Switches_Ada;
+   end Compiler;
+
+end A0B_ARMv7M;
