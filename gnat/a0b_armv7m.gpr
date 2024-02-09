@@ -13,7 +13,21 @@ project A0B_ARMv7M is
 
    --  Detect particular ARMv7 family from the name of the generic runtime.
 
+   Runtime_Ada := A0B_Common.Runtime_Ada;
+
    case A0B_Common.Runtime_Ada is
+      when "" =>
+         --  Fallback to Cortex-M3 when runtime if not explicitly specified.
+         --  It is necessary to build crate by Alire only.
+
+         for Runtime ("Ada") use "light-cortex-m3";
+         Runtime_Ada := Project'Runtime ("Ada");
+
+      when others =>
+         null;
+   end case;
+
+   case Runtime_Ada is
       when "light-cortex-m3" =>
          null;
 
