@@ -9,6 +9,8 @@ with "a0b_common";
 
 project A0B_ARMv7M is
 
+   for Target use "arm-eabi";
+
    --  Detect particular ARMv7 family from the name of the generic runtime.
 
    case A0B_Common.Runtime_Ada is
