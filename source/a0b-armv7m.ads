@@ -18,4 +18,8 @@ package A0B.ARMv7M is
    subtype Exception_Number is
      Exception_Number_Field range 1 .. Exception_Number_Field'Last;
 
+   type Priority_Value is mod 2 ** 8;
+   --  Value of the priority. It follow ARM convention, when lower number
+   --  means higher priority.
+
 end A0B.ARMv7M;

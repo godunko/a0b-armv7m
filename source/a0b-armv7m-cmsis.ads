@@ -66,6 +66,22 @@ package A0B.ARMv7M.CMSIS is
    --  Instruction_Synchronization_Barrier should be called after change of
    --  the value of the CONTROL register.
 
+   function Get_BASEPRI return A0B.ARMv7M.Priority_Value with Inline_Always;
+   --  Get Base Priority
+   --
+   --  Returns the current value of the Base Priority register.
+   --
+   --  XXX Note, GCC 13.2 fails to compile code when register is represented
+   --  as record like other registers.
+
+   procedure Set_BASEPRI (To : A0B.ARMv7M.Priority_Value) with Inline_Always;
+   --  Set Base Priority
+   --
+   --  Assigns the given value to the Base Priority register.
+   --
+   --  XXX Note, GCC 13.2 fails to compile code when register is represented
+   --  as record like other registers.
+
    function Get_MSP return System.Address with Inline_Always;
    --  Get Main Stack Pointer
    --

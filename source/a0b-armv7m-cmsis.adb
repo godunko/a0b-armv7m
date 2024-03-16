@@ -23,6 +23,20 @@ package body A0B.ARMv7M.CMSIS is
    end Data_Synchronization_Barrier;
 
    -----------------
+   -- Get_BASEPRI --
+   -----------------
+
+   function Get_BASEPRI return A0B.ARMv7M.Priority_Value is
+   begin
+      return Result : A0B.ARMv7M.Priority_Value do
+         System.Machine_Code.Asm
+           (Template => "mrs %0, basepri",
+            Outputs  => A0B.ARMv7M.Priority_Value'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Get_BASEPRI;
+
+   -----------------
    -- Get_CONTROL --
    -----------------
 
@@ -75,6 +89,19 @@ package body A0B.ARMv7M.CMSIS is
          Clobber  => "memory",
          Volatile => True);
    end Instruction_Synchronization_Barrier;
+
+   -----------------
+   -- Set_BASEPRI --
+   -----------------
+
+   procedure Set_BASEPRI (To : A0B.ARMv7M.Priority_Value) is
+   begin
+      System.Machine_Code.Asm
+        (Template => "msr basepri, %0",
+         Inputs   => A0B.ARMv7M.Priority_Value'Asm_Input ("r", To),
+         Clobber  => "memory",
+         Volatile => True);
+   end Set_BASEPRI;
 
    -----------------
    -- Set_CONTROL --
