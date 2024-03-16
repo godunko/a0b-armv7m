@@ -8,6 +8,8 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
+with System;
+
 with A0B.Types;
 
 package A0B.ARMv7M.CMSIS is
@@ -51,5 +53,15 @@ package A0B.ARMv7M.CMSIS is
    --
    --  Instruction_Synchronization_Barrier should be called after change of
    --  the value of the CONTROL register.
+
+   function Get_MSP return System.Address with Inline_Always;
+   --  Get Main Stack Pointer
+   --
+   --  Returns the current value of the Main Stack Pointer (MSP).
+
+   procedure Set_MSP (To : System.Address) with Inline_Always;
+   --  Set Main Stack Pointer
+   --
+   --  Assigns the given value to the Main Stack Pointer (MSP).
 
 end A0B.ARMv7M.CMSIS;

@@ -36,6 +36,20 @@ package body A0B.ARMv7M.CMSIS is
       end return;
    end Get_CONTROL;
 
+   -------------
+   -- Get_MSP --
+   -------------
+
+   function Get_MSP return System.Address is
+   begin
+      return Result : System.Address do
+         System.Machine_Code.Asm
+           (Template => "mrs %0, msp",
+            Outputs  => System.Address'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Get_MSP;
+
    -----------------------------------------
    -- Instruction_Synchronization_Barrier --
    -----------------------------------------
@@ -60,5 +74,18 @@ package body A0B.ARMv7M.CMSIS is
          Clobber  => "memory",
          Volatile => True);
    end Set_CONTROL;
+
+   -------------
+   -- Set_MSP --
+   -------------
+
+   procedure Set_MSP (To : System.Address) is
+   begin
+      System.Machine_Code.Asm
+        (Template => "msr msp, %0",
+         Inputs   => System.Address'Asm_Input ("r", To),
+         Clobber  => "memory",
+         Volatile => True);
+   end Set_MSP;
 
 end A0B.ARMv7M.CMSIS;
