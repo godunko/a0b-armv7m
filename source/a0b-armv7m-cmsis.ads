@@ -14,6 +14,18 @@ with A0B.Types;
 
 package A0B.ARMv7M.CMSIS is
 
+   procedure Wait_For_Interrupt with Inline_Always;
+   --  Wait For Interrupt
+   --
+   --  Wait For Interrupt is a hint instruction that suspends execution until
+   --  one of a number of events occurs.
+
+   procedure Wait_For_Event with Inline_Always;
+   --  Wait For Event
+   --
+   --  Wait For Event is a hint instruction that permits the processor to
+   --  enter a low-power state until one of a number of events occurs.
+
    procedure Data_Synchronization_Barrier with Inline_Always;
    --  Data Synchronization Barrier
    --

@@ -115,4 +115,26 @@ package body A0B.ARMv7M.CMSIS is
          Volatile => True);
    end Set_PSP;
 
+   --------------------
+   -- Wait_For_Event --
+   --------------------
+
+   procedure Wait_For_Event is
+   begin
+      System.Machine_Code.Asm
+        (Template => "wfe",
+         Volatile => True);
+   end Wait_For_Event;
+
+   ------------------------
+   -- Wait_For_Interrupt --
+   ------------------------
+
+   procedure Wait_For_Interrupt is
+   begin
+      System.Machine_Code.Asm
+        (Template => "wfi",
+         Volatile => True);
+   end Wait_For_Interrupt;
+
 end A0B.ARMv7M.CMSIS;
