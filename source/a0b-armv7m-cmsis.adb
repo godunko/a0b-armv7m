@@ -50,6 +50,20 @@ package body A0B.ARMv7M.CMSIS is
       end return;
    end Get_MSP;
 
+   -------------
+   -- Get_PSP --
+   -------------
+
+   function Get_PSP return System.Address is
+   begin
+      return Result : System.Address do
+         System.Machine_Code.Asm
+           (Template => "mrs %0, psp",
+            Outputs  => System.Address'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Get_PSP;
+
    -----------------------------------------
    -- Instruction_Synchronization_Barrier --
    -----------------------------------------
@@ -87,5 +101,18 @@ package body A0B.ARMv7M.CMSIS is
          Clobber  => "memory",
          Volatile => True);
    end Set_MSP;
+
+   -------------
+   -- Set_PSP --
+   -------------
+
+   procedure Set_PSP (To : System.Address) is
+   begin
+      System.Machine_Code.Asm
+        (Template => "msr psp, %0",
+         Inputs   => System.Address'Asm_Input ("r", To),
+         Clobber  => "memory",
+         Volatile => True);
+   end Set_PSP;
 
 end A0B.ARMv7M.CMSIS;

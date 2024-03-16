@@ -64,4 +64,14 @@ package A0B.ARMv7M.CMSIS is
    --
    --  Assigns the given value to the Main Stack Pointer (MSP).
 
+   function Get_PSP return System.Address with Inline_Always;
+   --  Get Process Stack Pointer
+   --
+   --  Returns the current value of the Process Stack Pointer (PSP).
+
+   procedure Set_PSP (To : System.Address) with Inline_Always;
+   --  Set Process Stack Pointer
+   --
+   --  Assigns the given value to the Process Stack Pointer (PSP).
+
 end A0B.ARMv7M.CMSIS;
