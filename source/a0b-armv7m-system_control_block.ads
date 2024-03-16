@@ -266,6 +266,36 @@ package A0B.ARMv7M.System_Control_Block is
       CPACR    at 16#88# range 0 .. 31;
    end record;
 
+   type SCB_FPCCR_Register is record
+      LSPACT        : Boolean := False;
+      USER          : Boolean := False;
+      Reserved_2_2  : A0B.Types.Reserved_1;
+      THREAD        : Boolean := False;
+      HFRDY         : Boolean := False;
+      MMRDY         : Boolean := False;
+      BFRDY         : Boolean := False;
+      Reserved_7_7  : A0B.Types.Reserved_1;
+      MONRDY        : Boolean := False;
+      Reserved_9_29 : A0B.Types.Reserved_21;
+      LSPEN         : Boolean := False;
+      ASPEN         : Boolean := False;
+   end record with Object_Size => 32;
+
+   for SCB_FPCCR_Register use record
+      LSPACT        at 0 range 0 .. 0;
+      USER          at 0 range 1 .. 1;
+      Reserved_2_2  at 0 range 2 .. 2;
+      THREAD        at 0 range 3 .. 3;
+      HFRDY         at 0 range 4 .. 4;
+      MMRDY         at 0 range 5 .. 5;
+      BFRDY         at 0 range 6 .. 6;
+      Reserved_7_7  at 0 range 7 .. 7;
+      MONRDY        at 0 range 8 .. 8;
+      Reserved_9_29 at 0 range 9 .. 29;
+      LSPEN         at 0 range 30 .. 30;
+      ASPEN         at 0 range 31 .. 31;
+   end record;
+
    type SCB_MVFR0_Register is record
       A_SIMD                : A0B.Types.Unsigned_4;
       Single_Precision      : A0B.Types.Unsigned_4;
@@ -289,7 +319,7 @@ package A0B.ARMv7M.System_Control_Block is
    end record;
 
    type SCB_FP_Registers is record
-      FPCCR  : A0B.Types.Reserved_32;
+      FPCCR  : SCB_FPCCR_Register with Volatile, Full_Access_Only;
       FPCAR  : A0B.Types.Reserved_32;
       FPDSCR : A0B.Types.Reserved_32;
       MVFR0  : SCB_MVFR0_Register with Volatile, Full_Access_Only;
