@@ -108,6 +108,40 @@ package A0B.ARMv7M.System_Control_Block is
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
+   type SCB_ICSR_Register is record
+      VECTACTIVE     : A0B.ARMv7M.Exception_Number_Field := 0;
+      Reserved_9_10  : A0B.Types.Reserved_2;
+      RETTOBASE      : Boolean := False;
+      VECTPENDING    : A0B.ARMv7M.Exception_Number_Field := 0;
+      Reserved_21    : A0B.Types.Reserved_1;
+      ISRPENDING     : Boolean := False;
+      ISRPREEMPT     : Boolean := False;
+      Reserved_24    : A0B.Types.Reserved_1;
+      PENDSTCLR      : Boolean := False;
+      PENDSTSET      : Boolean := False;
+      PENDSVCLR      : Boolean := False;
+      PENDSVSET      : Boolean := False;
+      Reserved_29_30 : A0B.Types.Reserved_2;
+      NMIPENDSET     : Boolean := False;
+   end record with Object_Size => 32;
+
+   for SCB_ICSR_Register use record
+      VECTACTIVE     at 0 range 0 .. 8;
+      Reserved_9_10  at 0 range 9 .. 10;
+      RETTOBASE      at 0 range 11 .. 11;
+      VECTPENDING    at 0 range 12 .. 20;
+      Reserved_21    at 0 range 21 .. 21;
+      ISRPENDING     at 0 range 22 .. 22;
+      ISRPREEMPT     at 0 range 23 .. 23;
+      Reserved_24    at 0 range 24 .. 24;
+      PENDSTCLR      at 0 range 25 .. 25;
+      PENDSTSET      at 0 range 26 .. 26;
+      PENDSVCLR      at 0 range 27 .. 27;
+      PENDSVSET      at 0 range 28 .. 28;
+      Reserved_29_30 at 0 range 29 .. 30;
+      NMIPENDSET     at 0 range 31 .. 31;
+   end record;
+
    type SCB_SHCSR_Register is record
       MEMFAULTACT    : Boolean;
       BUSFAULTACT    : Boolean;
@@ -152,7 +186,7 @@ package A0B.ARMv7M.System_Control_Block is
 
    type SCB_Registers is record
       CPUID    : A0B.Types.Reserved_32;
-      ICSR     : A0B.Types.Reserved_32;
+      ICSR     : SCB_ICSR_Register   with Volatile, Full_Access_Only;
       VTOR     : A0B.Types.Reserved_32;
       AIRCR    : A0B.Types.Reserved_32;
       SCR      : A0B.Types.Reserved_32;
