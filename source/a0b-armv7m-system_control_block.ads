@@ -184,6 +184,10 @@ package A0B.ARMv7M.System_Control_Block is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
+   type SCB_SHPR_Register is
+     array (A0B.ARMv7M.Exception_Number range 4 .. 15)
+       of A0B.ARMv7M.Priority_Value;
+
    type SCB_Registers is record
       CPUID    : A0B.Types.Reserved_32;
       ICSR     : SCB_ICSR_Register   with Volatile, Full_Access_Only;
@@ -191,9 +195,9 @@ package A0B.ARMv7M.System_Control_Block is
       AIRCR    : A0B.Types.Reserved_32;
       SCR      : A0B.Types.Reserved_32;
       CCR      : SCB_CCR_Register    with Volatile, Full_Access_Only;
-      SHPR1    : A0B.Types.Reserved_32;
-      SHPR2    : A0B.Types.Reserved_32;
-      SHPR3    : A0B.Types.Reserved_32;
+      SHPR     : SCB_SHPR_Register   with Volatile;
+      --  SHPR is a set of SHPR1/SHPR2/SHPR3 registers.
+      --  It is byte, aligned halfword, and word accessible.
       SHCSR    : SCB_SHCSR_Register  with Volatile, Full_Access_Only;
       CFSR     : A0B.Types.Reserved_32;
       HFSR     : A0B.Types.Reserved_32;
@@ -202,7 +206,7 @@ package A0B.ARMv7M.System_Control_Block is
       BFAR     : A0B.Types.Reserved_32;
       AFSR     : A0B.Types.Reserved_32;
 
-      -- ARMv7-M CPUID subblock begin
+      --  ARMv7-M CPUID subblock begin
 
       ID_PFR0  : A0B.Types.Reserved_32;
       ID_PFR1  : A0B.Types.Reserved_32;
@@ -223,7 +227,7 @@ package A0B.ARMv7M.System_Control_Block is
       CCSIDR   : SCB_CCSIDR_Register with Volatile, Full_Access_Only;
       CSSELR   : SCB_CSSELR_Register with Volatile, Full_Access_Only;
 
-      -- ARMv7-M CPUID subblock end
+      --  ARMv7-M CPUID subblock end
 
       CPACR    : SCB_CPACR_Register  with Volatile, Full_Access_Only;
    end record;
@@ -235,9 +239,7 @@ package A0B.ARMv7M.System_Control_Block is
       AIRCR    at 16#0C# range 0 .. 31;
       SCR      at 16#10# range 0 .. 31;
       CCR      at 16#14# range 0 .. 31;
-      SHPR1    at 16#18# range 0 .. 31;
-      SHPR2    at 16#1C# range 0 .. 31;
-      SHPR3    at 16#20# range 0 .. 31;
+      SHPR     at 16#18# range 0 .. 95;
       SHCSR    at 16#24# range 0 .. 31;
       CFSR     at 16#28# range 0 .. 31;
       HFSR     at 16#2C# range 0 .. 31;
