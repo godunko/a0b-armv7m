@@ -18,6 +18,14 @@ package A0B.ARMv7M is
    subtype Exception_Number is
      Exception_Number_Field range 1 .. Exception_Number_Field'Last;
 
+   MemManage_Exception    : constant Exception_Number := 4;
+   BusFault_Exception     : constant Exception_Number := 5;
+   UsageFault_Exception   : constant Exception_Number := 6;
+   SVCall_Exception       : constant Exception_Number := 11;
+   DebugMonitor_Exception : constant Exception_Number := 12;
+   PendSV_Exception       : constant Exception_Number := 14;
+   SysTick_Exception      : constant Exception_Number := 15;
+
    type Priority_Value is mod 2 ** 8;
    --  Value of the priority. It follow ARM convention, when lower number
    --  means higher priority.
