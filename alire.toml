@@ -12,7 +12,12 @@ project-files=["gnat/a0b_armv7m.gpr"]
 tags = ["embedded"]
 
 [configuration]
-disabled = true
+generate_ada = false
+generate_gpr = true
+generate_c = false
+
+[configuration.variables]
+FPU_Extension = {type = "Enum", values = ["none", "VFPv4", "VFPv5"]}
 
 [[depends-on]]
 gnat_arm_elf = "*"

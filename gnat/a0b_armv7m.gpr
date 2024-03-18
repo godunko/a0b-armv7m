@@ -6,46 +6,19 @@
 
 with "a0b_base";
 with "a0b_common";
+with "../config/a0b_armv7m_config";
 
 project A0B_ARMv7M is
 
+   --  Configuration parameters below must be defined in alire.toml of the
+   --  board support packages.
+   --
+   --  They doesn't have default values to prevent be undefined, thus stop
+   --  compiler from produce invalid or dangerous code.
+
+   FPU_Extension := A0B_ARMv7M_Config.FPU_Extension;
+
    for Target use "arm-eabi";
-
-   --  Detect particular ARMv7 family from the name of the generic runtime.
-
-   Runtime_Ada := A0B_Common.Runtime_Ada;
-
-   case A0B_Common.Runtime_Ada is
-      when "" =>
-         --  Fallback to Cortex-M3 when runtime if not explicitly specified.
-         --  It is necessary to build crate by Alire only.
-
-         for Runtime ("Ada") use "light-cortex-m3";
-         Runtime_Ada := Project'Runtime ("Ada");
-
-      when others =>
-         null;
-   end case;
-
-   case Runtime_Ada is
-      when "light-cortex-m3" =>
-         null;
-
-      when "light-cortex-m4" =>
-         null;
-
-      when "light-cortex-m4f" =>
-         null;
-
-      when "light-cortex-m7f" =>
-         null;
-
-      when "light-cortex-m7df" =>
-         null;
-
-      when others =>
-         null;
-   end case;
 
    for Source_Dirs use ("../source");
    for Object_Dir use "../.objs/" & A0B_Common.Object_Dir_Suffix;
