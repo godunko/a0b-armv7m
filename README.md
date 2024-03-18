@@ -12,4 +12,4 @@ This crate defines `FPU_Extension` configuration variable with few possible valu
 
 `A0B_ARMv7M` project file defines `FPU_Extension` parameter that might be used by project files to detect support of the FPU by the chip.
 
-Usually, this variable is defined by the Board Support Package, and user application must never change this parameter.
+Usually, `FPU_Extension` variable is defined by the Board Support Package crate, and user application must never change this parameter.
