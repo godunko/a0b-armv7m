@@ -22,6 +22,30 @@ package body A0B.ARMv7M.CMSIS is
          Volatile => True);
    end Data_Synchronization_Barrier;
 
+   ------------------------
+   -- Disable_Interrupts --
+   ------------------------
+
+   procedure Disable_Interrupts is
+   begin
+      System.Machine_Code.Asm
+        (Template => "cpsid i",
+         Clobber  => "memory",
+         Volatile => True);
+   end Disable_Interrupts;
+
+   -----------------------
+   -- Enable_Interrupts --
+   -----------------------
+
+   procedure Enable_Interrupts is
+   begin
+      System.Machine_Code.Asm
+        (Template => "cpsie i",
+         Clobber  => "memory",
+         Volatile => True);
+   end Enable_Interrupts;
+
    -----------------
    -- Get_BASEPRI --
    -----------------

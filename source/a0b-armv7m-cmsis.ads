@@ -39,6 +39,18 @@ package A0B.ARMv7M.CMSIS is
    --  processor, so that all instructions following the ISB are fetched from
    --  cache or memory, after the instruction has been completed.
 
+   procedure Enable_Interrupts with Inline_Always;
+   --  Enable IRQ Interrupts
+   --
+   --  Enables IRQ interrupts by clearing the I-bit in the CPSR.
+   --  Can only be executed in Privileged modes.
+
+   procedure Disable_Interrupts with Inline_Always;
+   --  Disable IRQ Interrupts
+   --
+   --  Disables IRQ interrupts by setting the I-bit in the CPSR.
+   --  Can only be executed in Privileged modes.
+
    type CONTROL_Register is record
       nPRIV         : Boolean;
       SPSEL         : Boolean;
