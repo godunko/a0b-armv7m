@@ -51,6 +51,18 @@ package A0B.ARMv7M.CMSIS is
    --  Disables IRQ interrupts by setting the I-bit in the CPSR.
    --  Can only be executed in Privileged modes.
 
+   procedure Enable_Faults with Inline_Always;
+   --  Enable FIQ
+   --
+   --  Enables FIQ interrupts by clearing the F-bit in the CPSR.
+   --  Can only be executed in Privileged modes.
+
+   procedure Disable_Faults with Inline_Always;
+   --  Disable FIQ
+   --
+   --  Disables FIQ interrupts by setting the F-bit in the CPSR.
+   --  Can only be executed in Privileged modes.
+
    type CONTROL_Register is record
       nPRIV         : Boolean;
       SPSEL         : Boolean;

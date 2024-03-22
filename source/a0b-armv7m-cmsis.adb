@@ -22,6 +22,18 @@ package body A0B.ARMv7M.CMSIS is
          Volatile => True);
    end Data_Synchronization_Barrier;
 
+   --------------------
+   -- Disable_Faults --
+   --------------------
+
+   procedure Disable_Faults is
+   begin
+      System.Machine_Code.Asm
+        (Template => "cpsid f",
+         Clobber  => "memory",
+         Volatile => True);
+   end Disable_Faults;
+
    ------------------------
    -- Disable_Interrupts --
    ------------------------
@@ -33,6 +45,18 @@ package body A0B.ARMv7M.CMSIS is
          Clobber  => "memory",
          Volatile => True);
    end Disable_Interrupts;
+
+   -------------------
+   -- Enable_Faults --
+   -------------------
+
+   procedure Enable_Faults is
+   begin
+      System.Machine_Code.Asm
+        (Template => "cpsie f",
+         Clobber  => "memory",
+         Volatile => True);
+   end Enable_Faults;
 
    -----------------------
    -- Enable_Interrupts --
