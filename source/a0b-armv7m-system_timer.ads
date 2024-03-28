@@ -12,7 +12,9 @@ with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.System_Timer is
+package A0B.ARMv7M.System_Timer
+  with Preelaborate
+is
 
    type SYST_CSR_Register is record
       ENABLE         : Boolean := False;

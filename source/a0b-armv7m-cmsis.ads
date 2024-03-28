@@ -12,7 +12,9 @@ with System;
 
 with A0B.Types;
 
-package A0B.ARMv7M.CMSIS is
+package A0B.ARMv7M.CMSIS
+  with Preelaborate
+is
 
    procedure Wait_For_Interrupt with Inline_Always;
    --  Wait For Interrupt

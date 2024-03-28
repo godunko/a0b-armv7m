@@ -12,7 +12,9 @@ with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.System_Control_Block is
+package A0B.ARMv7M.System_Control_Block
+  with Preelaborate
+is
 
    type SCB_CCR_Register is record
       NONBASETHRDENA : Boolean;
