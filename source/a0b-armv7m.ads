@@ -26,6 +26,9 @@ package A0B.ARMv7M is
    PendSV_Exception       : constant Exception_Number := 14;
    SysTick_Exception      : constant Exception_Number := 15;
 
+   type External_Interrupt_Number is range 0 .. 495;
+   --  External interrupt number (IRQ).
+
    type Priority_Value is mod 2 ** 8;
    --  Value of the priority. It follow ARM convention, when lower number
    --  means higher priority.
