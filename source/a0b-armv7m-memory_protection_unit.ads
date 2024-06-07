@@ -12,7 +12,9 @@ with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.Memory_Protection_Unit is
+package A0B.ARMv7M.Memory_Protection_Unit
+  with Preelaborate
+is
 
    type MPU_CTRL_Register is record
       ENABLE        : Boolean;
@@ -26,6 +28,16 @@ package A0B.ARMv7M.Memory_Protection_Unit is
       HFNMIENA      at 0 range 1 .. 1;
       PRIVDEFENA    at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
+   end record;
+
+   type MPU_RNR_Register is record
+      REGION        : A0B.Types.Unsigned_8  := 0;
+      Reserved_8_31 : A0B.Types.Unsigned_24 := 0;
+   end record with Object_Size => 32;
+
+   for MPU_RNR_Register use record
+      REGION        at 0 range 0 .. 7;
+      Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
    type MPU_RBAR_Register is record
@@ -75,7 +87,7 @@ package A0B.ARMv7M.Memory_Protection_Unit is
    type MPU_Registers is record
       MPU_TYPE    : A0B.Types.Unsigned_32;
       MPU_CTRL    : MPU_CTRL_Register with Volatile, Full_Access_Only;
-      MPU_RNR     : A0B.Types.Unsigned_32;
+      MPU_RNR     : MPU_RNR_Register  with Volatile, Full_Access_Only;
       MPU_RBAR    : MPU_RBAR_Register with Volatile, Full_Access_Only;
       MPU_RASR    : MPU_RASR_Register with Volatile, Full_Access_Only;
       MPU_RBAR_A1 : A0B.Types.Unsigned_32;
