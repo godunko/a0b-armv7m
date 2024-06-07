@@ -10,6 +10,8 @@ pragma Ada_2022;
 
 with System.Storage_Elements;
 
+with A0B.Types;
+
 package A0B.ARMv7M.NVIC
   with Preelaborate
 is
@@ -31,6 +33,16 @@ is
 
    type IPR_Register is array (External_Interrupt_Number) of Priority_Value
      with Pack, Object_Size => 3_968;
+
+   type ICTR_Register is record
+      INTLINESNUM : A0B.Types.Unsigned_4;
+      Reserved    : A0B.Types.Reserved_24;
+   end record;
+
+   for ICTR_Register use record
+      INTLINESNUM at 0 range 0 .. 3;
+      Reserved    at 0 range 4 .. 31;
+   end record;
 
 --     type NVIC_Registers is record
 --        ISER : ISER_Register with Volatile;
@@ -54,6 +66,11 @@ is
 --       System.Storage_Elements.To_Address (16#E000_E100#);
 
 --     NVIC : NVIC_Registers with Import, Address => NVIC_Base;
+
+   ICTR : ICTR_Register
+     with Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_E004#);
 
    ISER : ISER_Register
      with Volatile,
