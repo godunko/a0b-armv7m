@@ -80,6 +80,27 @@ package body A0B.ARMv7M.NVIC_Utilities is
       ISER (Index) := Word (Mask);
    end Enable_Interrupt;
 
+   ------------------
+   -- Get_Priority --
+   ------------------
+
+   function Get_Priority
+     (Interrupt : External_Interrupt_Number) return Priority_Value is
+   begin
+      return IPR (Interrupt);
+   end Get_Priority;
+
+   ------------------
+   -- Set_Priority --
+   ------------------
+
+   procedure Set_Priority
+     (Interrupt : External_Interrupt_Number;
+      Priority  : Priority_Value) is
+   begin
+      IPR (Interrupt) := Priority;
+   end Set_Priority;
+
    -----------------
    -- Set_Pending --
    -----------------

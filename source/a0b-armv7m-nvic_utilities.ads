@@ -18,4 +18,11 @@ is
 
    procedure Clear_Pending (Interrupt : External_Interrupt_Number);
 
+   function Get_Priority
+     (Interrupt : External_Interrupt_Number) return Priority_Value;
+
+   procedure Set_Priority
+     (Interrupt : External_Interrupt_Number;
+      Priority  : Priority_Value);
+
 end A0B.ARMv7M.NVIC_Utilities;
