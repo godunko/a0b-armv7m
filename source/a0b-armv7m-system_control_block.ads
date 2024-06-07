@@ -190,6 +190,84 @@ is
      array (A0B.ARMv7M.Exception_Number range 4 .. 15)
        of A0B.ARMv7M.Priority_Value;
 
+   type MMFSR_Register is record
+      IACCVIOL     : Boolean;
+      DACCVIOL     : Boolean;
+      Reserved_2_2 : A0B.Types.Reserved_1;
+      MUNSTKERR    : Boolean;
+      MSTKERR      : Boolean;
+      MLSPERR      : Boolean;
+      Reserved_6_6 : A0B.Types.Reserved_1;
+      MMARVALID    : Boolean;
+   end record with Object_Size => 8;
+
+   for MMFSR_Register use record
+      IACCVIOL     at 0 range 0 .. 0;
+      DACCVIOL     at 0 range 1 .. 1;
+      Reserved_2_2 at 0 range 2 .. 2;
+      MUNSTKERR    at 0 range 3 .. 3;
+      MSTKERR      at 0 range 4 .. 4;
+      MLSPERR      at 0 range 5 .. 5;
+      Reserved_6_6 at 0 range 6 .. 6;
+      MMARVALID    at 0 range 7 .. 7;
+   end record;
+
+   type BFSR_Register is record
+      IBUSERR      : Boolean;
+      PRECISERR    : Boolean;
+      IMPRECISERR  : Boolean;
+      UNSTKERR     : Boolean;
+      STKERR       : Boolean;
+      LSPERR       : Boolean;
+      Reserved_6_6 : A0B.Types.Reserved_1;
+      BFARVALID    : Boolean;
+   end record with Object_Size => 8;
+
+   for BFSR_Register use record
+      IBUSERR      at 0 range 0 .. 0;
+      PRECISERR    at 0 range 1 .. 1;
+      IMPRECISERR  at 0 range 2 .. 2;
+      UNSTKERR     at 0 range 3 .. 3;
+      STKERR       at 0 range 4 .. 4;
+      LSPERR       at 0 range 5 .. 5;
+      Reserved_6_6 at 0 range 6 .. 6;
+      BFARVALID    at 0 range 7 .. 7;
+   end record;
+
+   type UFSR_Register is record
+      UNDEFINSTR     : Boolean;
+      INVSTATE       : Boolean;
+      INVPC          : Boolean;
+      NOCP           : Boolean;
+      Reserved_4_7   : A0B.Types.Reserved_4;
+      UNALIGNED      : Boolean;
+      DIVBYZERO      : Boolean;
+      Reserved_10_15 : A0B.Types.Reserved_6;
+   end record with Object_Size => 16;
+
+   for UFSR_Register use record
+      UNDEFINSTR     at 0 range 0 .. 0;
+      INVSTATE       at 0 range 1 .. 1;
+      INVPC          at 0 range 2 .. 2;
+      NOCP           at 0 range 3 .. 3;
+      Reserved_4_7   at 0 range 4 .. 7;
+      UNALIGNED      at 0 range 8 .. 8;
+      DIVBYZERO      at 0 range 9 .. 9;
+      Reserved_10_15 at 0 range 10 .. 15;
+   end record;
+
+   type SCB_CFSR_Register is record
+      MemManage  : MMFSR_Register;
+      BusFault   : BFSR_Register;
+      UsageFault : UFSR_Register;
+   end record with Object_Size => 32;
+
+   for SCB_CFSR_Register use record
+      MemManage  at 0 range 0 .. 7;
+      BusFault   at 0 range 8 .. 15;
+      UsageFault at 0 range 16 .. 31;
+   end record;
+
    type SCB_Registers is record
       CPUID    : A0B.Types.Reserved_32;
       ICSR     : SCB_ICSR_Register   with Volatile, Full_Access_Only;
@@ -201,7 +279,7 @@ is
       --  SHPR is a set of SHPR1/SHPR2/SHPR3 registers.
       --  It is byte, aligned halfword, and word accessible.
       SHCSR    : SCB_SHCSR_Register  with Volatile, Full_Access_Only;
-      CFSR     : A0B.Types.Reserved_32;
+      CFSR     : SCB_CFSR_Register   with Volatile;
       HFSR     : A0B.Types.Reserved_32;
       DFSR     : A0B.Types.Reserved_32;
       MMFAR    : A0B.Types.Reserved_32;
