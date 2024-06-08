@@ -268,6 +268,22 @@ is
       UsageFault at 0 range 16 .. 31;
    end record;
 
+   type SCB_HFSR_Register is record
+      Reserved_0_0  : Boolean;
+      VECTTBL       : Boolean;
+      Reserved_2_29 : A0B.Types.Reserved_28;
+      FORCED        : Boolean;
+      DEBUGEVT      : Boolean;
+   end record with Object_Size => 32;
+
+   for SCB_HFSR_Register use record
+      Reserved_0_0  at 0 range 0 .. 0;
+      VECTTBL       at 0 range 1 .. 1;
+      Reserved_2_29 at 0 range 2 .. 29;
+      FORCED        at 0 range 30 .. 30;
+      DEBUGEVT      at 0 range 31 .. 31;
+   end record;
+
    type SCB_Registers is record
       CPUID    : A0B.Types.Reserved_32;
       ICSR     : SCB_ICSR_Register   with Volatile, Full_Access_Only;
@@ -280,10 +296,10 @@ is
       --  It is byte, aligned halfword, and word accessible.
       SHCSR    : SCB_SHCSR_Register  with Volatile, Full_Access_Only;
       CFSR     : SCB_CFSR_Register   with Volatile;
-      HFSR     : A0B.Types.Reserved_32;
+      HFSR     : SCB_HFSR_Register   with Volatile, Full_Access_Only;
       DFSR     : A0B.Types.Reserved_32;
-      MMFAR    : A0B.Types.Reserved_32;
-      BFAR     : A0B.Types.Reserved_32;
+      MMFAR    : System.Address      with Volatile, Full_Access_Only;
+      BFAR     : System.Address      with Volatile, Full_Access_Only;
       AFSR     : A0B.Types.Reserved_32;
 
       --  ARMv7-M CPUID subblock begin
