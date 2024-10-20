@@ -11,7 +11,7 @@ with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.SYST
+package A0B.ARMv7M.SCS.SYST
   with Preelaborate
 is
 
@@ -89,4 +89,4 @@ is
           Address => System.Storage_Elements.To_Address (16#E000_E01C#);
    --  SysTick Calibration value Register
 
-end A0B.ARMv7M.SYST;
+end A0B.ARMv7M.SCS.SYST;
