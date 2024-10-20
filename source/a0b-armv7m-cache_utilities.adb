@@ -5,11 +5,11 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with A0B.ARMv7M.CMSIS;       use A0B.ARMv7M.CMSIS;
-with A0B.ARMv7M.System_Control_Block.Cache;
+with A0B.ARMv7M.SCS.Cache;
+with A0B.ARMv7M.SCS.SCB;
 with A0B.Types;
 with A0B.Types.GCC_Builtins; use A0B.Types.GCC_Builtins;
 
@@ -18,8 +18,6 @@ package body A0B.ARMv7M.Cache_Utilities is
    use type A0B.Types.Unsigned_32;
    use type System.Storage_Elements.Integer_Address;
    use type System.Storage_Elements.Storage_Count;
-
-   package SCB renames A0B.ARMv7M.System_Control_Block;
 
    DCache_Line_Size : constant := 32;
 
@@ -47,7 +45,7 @@ package body A0B.ARMv7M.Cache_Utilities is
       Data_Synchronization_Barrier;
 
       loop
-         SCB.Cache.DCCMVAC := Current;
+         SCS.Cache.DCCMVAC := Current;
          Current           := @ + DCache_Line_Size;
          Remaining         := @ - DCache_Line_Size;
 
@@ -82,7 +80,7 @@ package body A0B.ARMv7M.Cache_Utilities is
       Data_Synchronization_Barrier;
 
       loop
-         SCB.Cache.DCCIMVAC := Current;
+         SCS.Cache.DCCIMVAC := Current;
          Current           := @ + DCache_Line_Size;
          Remaining         := @ - DCache_Line_Size;
 
@@ -106,20 +104,20 @@ package body A0B.ARMv7M.Cache_Utilities is
       Set       : A0B.Types.Unsigned_32;
       Way_Shift : Natural;
       Set_Shift : Natural;
-      CCSIDR    : A0B.ARMv7M.System_Control_Block.SCB_CCSIDR_Register;
+      CCSIDR    : A0B.ARMv7M.SCS.SCB.CCSIDR_Register;
 
    begin
       --  Select Level 1 Data cache.
 
       declare
-         Aux : A0B.ARMv7M.System_Control_Block.SCB_CSSELR_Register :=
-           A0B.ARMv7M.System_Control_Block.SCB.CSSELR;
+         Aux : A0B.ARMv7M.SCS.SCB.CSSELR_Register :=
+           A0B.ARMv7M.SCS.SCB.CSSELR;
 
       begin
          Aux.InD   := False;
          Aux.Level := 0;
 
-         A0B.ARMv7M.System_Control_Block.SCB.CSSELR := Aux;
+         A0B.ARMv7M.SCS.SCB.CSSELR := Aux;
       end;
 
       Data_Synchronization_Barrier;
@@ -127,7 +125,7 @@ package body A0B.ARMv7M.Cache_Utilities is
       --  Compute data cache parameters and shifts of fields in DCISW
       --  regisger.
 
-      CCSIDR := A0B.ARMv7M.System_Control_Block.SCB.CCSIDR;
+      CCSIDR := A0B.ARMv7M.SCS.SCB.CCSIDR;
 
       Ways := A0B.Types.Unsigned_32 (CCSIDR.Associativity);
       Sets := A0B.Types.Unsigned_32 (CCSIDR.NumSets);
@@ -155,7 +153,7 @@ package body A0B.ARMv7M.Cache_Utilities is
                    or A0B.Types.Shift_Left (Set, Set_Shift);
 
             begin
-               SCB.Cache.DCISW := Aux;
+               SCS.Cache.DCISW := Aux;
             end;
 
             exit when Set = 0;
@@ -170,7 +168,7 @@ package body A0B.ARMv7M.Cache_Utilities is
 
       Data_Synchronization_Barrier;
 
-      SCB.SCB.CCR.DC := True;
+      A0B.ARMv7M.SCS.SCB.CCR.DC := True;
       --  Enable instruction cache
 
       Data_Synchronization_Barrier;
@@ -186,13 +184,13 @@ package body A0B.ARMv7M.Cache_Utilities is
       Data_Synchronization_Barrier;
       Instruction_Synchronization_Barrier;
 
-      SCB.Cache.ICIALLU := 0;
+      A0B.ARMv7M.SCS.Cache.ICIALLU := 0;
       --  Invalidate instructions cache
 
       Data_Synchronization_Barrier;
       Instruction_Synchronization_Barrier;
 
-      SCB.SCB.CCR.IC := True;
+      A0B.ARMv7M.SCS.SCB.CCR.IC := True;
       --  Enable instruction cache
 
       Data_Synchronization_Barrier;
@@ -223,9 +221,9 @@ package body A0B.ARMv7M.Cache_Utilities is
       Data_Synchronization_Barrier;
 
       loop
-         SCB.Cache.DCIMVAC := Current;
-         Current           := @ + DCache_Line_Size;
-         Remaining         := @ - DCache_Line_Size;
+         A0B.ARMv7M.SCS.Cache.DCIMVAC := Current;
+         Current                      := @ + DCache_Line_Size;
+         Remaining                    := @ - DCache_Line_Size;
 
          exit when Remaining = 0;
       end loop;

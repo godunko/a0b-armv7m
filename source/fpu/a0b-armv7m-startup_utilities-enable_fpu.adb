@@ -6,14 +6,14 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-with A0B.ARMv7M.System_Control_Block; use A0B.ARMv7M.System_Control_Block;
+with A0B.ARMv7M.SCS.SCB;
 
 procedure A0B.ARMv7M.Startup_Utilities.Enable_FPU is
-   Aux : SCB_CPACR_Register := SCB.CPACR;
+   Aux : A0B.ARMv7M.SCS.SCB.CPACR_Register := A0B.ARMv7M.SCS.SCB.CPACR;
 
 begin
    Aux.CP10 := 2#11#;
    Aux.CP11 := 2#11#;
 
-   SCB.CPACR := Aux;
+   A0B.ARMv7M.SCS.SCB.CPACR := Aux;
 end A0B.ARMv7M.Startup_Utilities.Enable_FPU;
