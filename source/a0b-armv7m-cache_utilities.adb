@@ -7,11 +7,10 @@
 pragma Restrictions (No_Elaboration_Code);
 pragma Ada_2022;
 
-with A0B.ARMv7M.CMSIS;       use A0B.ARMv7M.CMSIS;
+with A0B.ARMv7M.Instructions; use A0B.ARMv7M.Instructions;
 with A0B.ARMv7M.SCS.Cache;
 with A0B.ARMv7M.SCS.SCB;
-with A0B.Types;
-with A0B.Types.GCC_Builtins; use A0B.Types.GCC_Builtins;
+with A0B.Types.GCC_Builtins;  use A0B.Types.GCC_Builtins;
 
 package body A0B.ARMv7M.Cache_Utilities is
 
