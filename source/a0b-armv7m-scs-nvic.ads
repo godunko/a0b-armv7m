@@ -5,14 +5,13 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.NVIC
+package A0B.ARMv7M.SCS.NVIC
   with Preelaborate
 is
 
@@ -44,29 +43,6 @@ is
       Reserved    at 0 range 4 .. 31;
    end record;
 
---     type NVIC_Registers is record
---        ISER : ISER_Register with Volatile;
---        ICER : ICER_Register with Volatile;
---        ISPR : ISPR_Register with Volatile;
---        ICPR : ICPR_Register with Volatile;
---        IABR : IABR_Register with Volatile;
---        IPR  : IPR_Register with Volatile;
---     end record;
-
---     for NVIC_Registers use record
---        ISER at 16#000# range 0 .. 495;
---        ICER at 16#080# range 0 .. 495;
---        ISPR at 16#100# range 0 .. 495;
---        ICPR at 16#180# range 0 .. 495;
---        IABR at 16#200# range 0 .. 495;
---        IPR  at 16#300# range 0 .. 3_967;
---     end record;
-
---     NVIC_Base : constant System.Address :=
---       System.Storage_Elements.To_Address (16#E000_E100#);
-
---     NVIC : NVIC_Registers with Import, Address => NVIC_Base;
-
    ICTR : ICTR_Register
      with Volatile,
           Full_Access_Only,
@@ -91,4 +67,4 @@ is
      with Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E400#);
 
-end A0B.ARMv7M.NVIC;
+end A0B.ARMv7M.SCS.NVIC;
