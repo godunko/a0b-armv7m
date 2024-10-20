@@ -44,27 +44,34 @@ is
    end record;
 
    ICTR : ICTR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_E004#);
 
    ISER : ISER_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E100#);
    ICER : ICER_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E180#);
    ISPR : ISPR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E200#);
    ICPR : ICPR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E280#);
    IABR : IABR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E300#);
    IPR  : IPR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Address => System.Storage_Elements.To_Address (16#E000_E400#);
 
 end A0B.ARMv7M.SCS.NVIC;
