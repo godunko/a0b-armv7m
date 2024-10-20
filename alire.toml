@@ -22,3 +22,8 @@ FPU_Extension = {type = "Enum", values = ["none", "VFPv4", "VFPv5"]}
 [[depends-on]]
 gnat_arm_elf = "*"
 a0b_base = "*"
+
+[[actions]]
+type = "test"
+directory = "selftest"
+command = ["alr", "build"]
