@@ -20,32 +20,37 @@ is
    --  0xE000EF78 BPIALL WOBranch predictor invalidate allIgnored
 
    ICIALLU : A0B.Types.Unsigned_32
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_EF50#);
    --  I-cache invalidate all to PoU
 
    DCIMVAC : System.Storage_Elements.Integer_Address
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_EF5C#);
    --  D-cache invalidate by MVA to PoC
 
    DCISW   : A0B.Types.Unsigned_32
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_EF60#);
    --  D-cache invalidate by set-way
    --  XXX This register has "dynamic" strusture.
 
    DCCMVAC : System.Storage_Elements.Integer_Address
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_EF68#);
    --  D-cache clean by MVA to PoC
 
    DCCIMVAC : System.Storage_Elements.Integer_Address
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_EF70#);
    --  D-cache clean and invalidate by MVA to PoC
