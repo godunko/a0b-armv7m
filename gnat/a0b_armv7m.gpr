@@ -20,7 +20,23 @@ project A0B_ARMv7M is
 
    for Target use "arm-eabi";
 
-   for Source_Dirs use ("../source");
+   Common_Source_Dirs := ("../source");
+   FPU_Source_Dirs := ("../source/fpu");
+
+   case FPU_Extension is
+      when "none" =>
+         for Source_Dirs use Common_Source_Dirs;
+
+      when "VFPv4" =>
+         for Source_Dirs use Common_Source_Dirs & FPU_Source_Dirs;
+
+      when "VFPv5" =>
+         for Source_Dirs use Common_Source_Dirs & FPU_Source_Dirs;
+
+      when others =>
+         null;
+   end case;
+
    for Object_Dir use "../.objs/" & A0B_Common.Object_Dir_Suffix;
 
    package Compiler is

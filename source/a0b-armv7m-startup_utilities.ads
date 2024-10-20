@@ -10,7 +10,4 @@ package A0B.ARMv7M.Startup_Utilities
   with Preelaborate
 is
 
-   procedure Enable_FPU with Inline_Always;
-   --  Enables floating point coprocessor.
-
 end A0B.ARMv7M.Startup_Utilities;
