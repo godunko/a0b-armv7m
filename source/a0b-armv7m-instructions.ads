@@ -4,15 +4,14 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
---  Various subprograms provided by CMSIS
+--  Various ARMv7 instructions
 
 pragma Restrictions (No_Elaboration_Code);
-
 with System;
 
 with A0B.Types;
 
-package A0B.ARMv7M.CMSIS
+package A0B.ARMv7M.Instructions
   with Preelaborate
 is
 
@@ -128,4 +127,4 @@ is
    --
    --  Assigns the given value to the Process Stack Pointer (PSP).
 
-end A0B.ARMv7M.CMSIS;
+end A0B.ARMv7M.Instructions;

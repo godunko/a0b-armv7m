@@ -8,7 +8,7 @@ pragma Restrictions (No_Elaboration_Code);
 
 with System.Machine_Code;
 
-package body A0B.ARMv7M.CMSIS is
+package body A0B.ARMv7M.Instructions is
 
    ----------------------------------
    -- Data_Synchronization_Barrier --
@@ -212,4 +212,4 @@ package body A0B.ARMv7M.CMSIS is
          Volatile => True);
    end Wait_For_Interrupt;
 
-end A0B.ARMv7M.CMSIS;
+end A0B.ARMv7M.Instructions;
