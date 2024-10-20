@@ -16,7 +16,29 @@ package A0B.ARMv7M.System_Control_Block
   with Preelaborate
 is
 
-   type SCB_CCR_Register is record
+   type BFSR_Register is record
+      IBUSERR      : Boolean;
+      PRECISERR    : Boolean;
+      IMPRECISERR  : Boolean;
+      UNSTKERR     : Boolean;
+      STKERR       : Boolean;
+      LSPERR       : Boolean;
+      Reserved_6_6 : A0B.Types.Reserved_1;
+      BFARVALID    : Boolean;
+   end record with Object_Size => 8;
+
+   for BFSR_Register use record
+      IBUSERR      at 0 range 0 .. 0;
+      PRECISERR    at 0 range 1 .. 1;
+      IMPRECISERR  at 0 range 2 .. 2;
+      UNSTKERR     at 0 range 3 .. 3;
+      STKERR       at 0 range 4 .. 4;
+      LSPERR       at 0 range 5 .. 5;
+      Reserved_6_6 at 0 range 6 .. 6;
+      BFARVALID    at 0 range 7 .. 7;
+   end record;
+
+   type CCR_Register is record
       NONBASETHRDENA : Boolean;
       USERSETMPEND   : Boolean;
       Reserved_2_2   : A0B.Types.Reserved_1;
@@ -32,7 +54,7 @@ is
       Reserved_19_31 : A0B.Types.Reserved_13;
    end record with Object_Size => 32;
 
-   for SCB_CCR_Register use record
+   for CCR_Register use record
       NONBASETHRDENA at 0 range 0 .. 0;
       USERSETMPEND   at 0 range 1 .. 1;
       Reserved_2_2   at 0 range 2 .. 2;
@@ -48,7 +70,7 @@ is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   type SCB_CCSIDR_Register is record
+   type CCSIDR_Register is record
       LineSize      : A0B.Types.Unsigned_3;
       Associativity : A0B.Types.Unsigned_10;
       NumSets       : A0B.Types.Unsigned_15;
@@ -58,7 +80,7 @@ is
       WT            : Boolean;
    end record with Object_Size => 32;
 
-   for SCB_CCSIDR_Register use record
+   for CCSIDR_Register use record
       LineSize      at 0 range 0 .. 2;
       Associativity at 0 range 3 .. 12;
       NumSets       at 0 range 13 .. 27;
@@ -68,19 +90,7 @@ is
       WT            at 0 range 31 .. 31;
    end record;
 
-   type SCB_CSSELR_Register is record
-      InD           : Boolean;
-      Level         : A0B.Types.Unsigned_3;
-      Reserved_4_31 : A0B.Types.Reserved_28;
-   end record with Object_Size => 32;
-
-   for SCB_CSSELR_Register use record
-      InD           at 0 range 0 .. 0;
-      Level         at 0 range 1 .. 3;
-      Reserved_4_31 at 0 range 4 .. 31;
-   end record;
-
-   type SCB_CPACR_Register is record
+   type CPACR_Register is record
       CP0            : A0B.Types.Unsigned_2 := 0;
       CP1            : A0B.Types.Unsigned_2 := 0;
       CP2            : A0B.Types.Unsigned_2 := 0;
@@ -95,7 +105,7 @@ is
       Reserved_24_31 : A0B.Types.Reserved_8;
    end record with Object_Size => 32;
 
-   for SCB_CPACR_Register use record
+   for CPACR_Register use record
       CP0            at 0 range 0 .. 1;
       CP1            at 0 range 2 .. 3;
       CP2            at 0 range 4 .. 5;
@@ -110,7 +120,35 @@ is
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
-   type SCB_ICSR_Register is record
+   type CSSELR_Register is record
+      InD           : Boolean;
+      Level         : A0B.Types.Unsigned_3;
+      Reserved_4_31 : A0B.Types.Reserved_28;
+   end record with Object_Size => 32;
+
+   for CSSELR_Register use record
+      InD           at 0 range 0 .. 0;
+      Level         at 0 range 1 .. 3;
+      Reserved_4_31 at 0 range 4 .. 31;
+   end record;
+
+   type HFSR_Register is record
+      Reserved_0_0  : Boolean;
+      VECTTBL       : Boolean;
+      Reserved_2_29 : A0B.Types.Reserved_28;
+      FORCED        : Boolean;
+      DEBUGEVT      : Boolean;
+   end record with Object_Size => 32;
+
+   for HFSR_Register use record
+      Reserved_0_0  at 0 range 0 .. 0;
+      VECTTBL       at 0 range 1 .. 1;
+      Reserved_2_29 at 0 range 2 .. 29;
+      FORCED        at 0 range 30 .. 30;
+      DEBUGEVT      at 0 range 31 .. 31;
+   end record;
+
+   type ICSR_Register is record
       VECTACTIVE     : A0B.ARMv7M.Exception_Number_Field := 0;
       Reserved_9_10  : A0B.Types.Reserved_2;
       RETTOBASE      : Boolean := False;
@@ -127,7 +165,7 @@ is
       NMIPENDSET     : Boolean := False;
    end record with Object_Size => 32;
 
-   for SCB_ICSR_Register use record
+   for ICSR_Register use record
       VECTACTIVE     at 0 range 0 .. 8;
       Reserved_9_10  at 0 range 9 .. 10;
       RETTOBASE      at 0 range 11 .. 11;
@@ -143,52 +181,6 @@ is
       Reserved_29_30 at 0 range 29 .. 30;
       NMIPENDSET     at 0 range 31 .. 31;
    end record;
-
-   type SCB_SHCSR_Register is record
-      MEMFAULTACT    : Boolean;
-      BUSFAULTACT    : Boolean;
-      Reserved_2     : A0B.Types.Reserved_1;
-      USGFAULTACT    : Boolean;
-      Reserved_4_6   : A0B.Types.Reserved_3;
-      SVCALLACT      : Boolean;
-      MONITORACT     : Boolean;
-      Reserved_9     : A0B.Types.Reserved_1;
-      PENDSVACT      : Boolean;
-      SYSTICKACT     : Boolean;
-      USGFAULTPENDED : Boolean;
-      MEMFAULTPENDED : Boolean;
-      BUSFAULTPENDED : Boolean;
-      SVCALLPENDED   : Boolean;
-      MEMFAULTENA    : Boolean;
-      BUSFAULTENA    : Boolean;
-      USGFAULTENA    : Boolean;
-      Reserved_19_31 : A0B.Types.Reserved_13;
-   end record with Object_Size => 32;
-
-   for SCB_SHCSR_Register use record
-      MEMFAULTACT    at 0 range 0 .. 0;
-      BUSFAULTACT    at 0 range 1 .. 1;
-      Reserved_2     at 0 range 2 .. 2;
-      USGFAULTACT    at 0 range 3 .. 3;
-      Reserved_4_6   at 0 range 4 .. 6;
-      SVCALLACT      at 0 range 7 .. 7;
-      MONITORACT     at 0 range 8 .. 8;
-      Reserved_9     at 0 range 9 .. 9;
-      PENDSVACT      at 0 range 10 .. 10;
-      SYSTICKACT     at 0 range 11 .. 11;
-      USGFAULTPENDED at 0 range 12 .. 12;
-      MEMFAULTPENDED at 0 range 13 .. 13;
-      BUSFAULTPENDED at 0 range 14 .. 14;
-      SVCALLPENDED   at 0 range 15 .. 15;
-      MEMFAULTENA    at 0 range 16 .. 16;
-      BUSFAULTENA    at 0 range 17 .. 17;
-      USGFAULTENA    at 0 range 18 .. 18;
-      Reserved_19_31 at 0 range 19 .. 31;
-   end record;
-
-   type SCB_SHPR_Register is
-     array (A0B.ARMv7M.Exception_Number range 4 .. 15)
-       of A0B.ARMv7M.Priority_Value;
 
    type MMFSR_Register is record
       IACCVIOL     : Boolean;
@@ -212,26 +204,46 @@ is
       MMARVALID    at 0 range 7 .. 7;
    end record;
 
-   type BFSR_Register is record
-      IBUSERR      : Boolean;
-      PRECISERR    : Boolean;
-      IMPRECISERR  : Boolean;
-      UNSTKERR     : Boolean;
-      STKERR       : Boolean;
-      LSPERR       : Boolean;
-      Reserved_6_6 : A0B.Types.Reserved_1;
-      BFARVALID    : Boolean;
-   end record with Object_Size => 8;
+   type SHCSR_Register is record
+      MEMFAULTACT    : Boolean;
+      BUSFAULTACT    : Boolean;
+      Reserved_2     : A0B.Types.Reserved_1;
+      USGFAULTACT    : Boolean;
+      Reserved_4_6   : A0B.Types.Reserved_3;
+      SVCALLACT      : Boolean;
+      MONITORACT     : Boolean;
+      Reserved_9     : A0B.Types.Reserved_1;
+      PENDSVACT      : Boolean;
+      SYSTICKACT     : Boolean;
+      USGFAULTPENDED : Boolean;
+      MEMFAULTPENDED : Boolean;
+      BUSFAULTPENDED : Boolean;
+      SVCALLPENDED   : Boolean;
+      MEMFAULTENA    : Boolean;
+      BUSFAULTENA    : Boolean;
+      USGFAULTENA    : Boolean;
+      Reserved_19_31 : A0B.Types.Reserved_13;
+   end record with Object_Size => 32;
 
-   for BFSR_Register use record
-      IBUSERR      at 0 range 0 .. 0;
-      PRECISERR    at 0 range 1 .. 1;
-      IMPRECISERR  at 0 range 2 .. 2;
-      UNSTKERR     at 0 range 3 .. 3;
-      STKERR       at 0 range 4 .. 4;
-      LSPERR       at 0 range 5 .. 5;
-      Reserved_6_6 at 0 range 6 .. 6;
-      BFARVALID    at 0 range 7 .. 7;
+   for SHCSR_Register use record
+      MEMFAULTACT    at 0 range 0 .. 0;
+      BUSFAULTACT    at 0 range 1 .. 1;
+      Reserved_2     at 0 range 2 .. 2;
+      USGFAULTACT    at 0 range 3 .. 3;
+      Reserved_4_6   at 0 range 4 .. 6;
+      SVCALLACT      at 0 range 7 .. 7;
+      MONITORACT     at 0 range 8 .. 8;
+      Reserved_9     at 0 range 9 .. 9;
+      PENDSVACT      at 0 range 10 .. 10;
+      SYSTICKACT     at 0 range 11 .. 11;
+      USGFAULTPENDED at 0 range 12 .. 12;
+      MEMFAULTPENDED at 0 range 13 .. 13;
+      BUSFAULTPENDED at 0 range 14 .. 14;
+      SVCALLPENDED   at 0 range 15 .. 15;
+      MEMFAULTENA    at 0 range 16 .. 16;
+      BUSFAULTENA    at 0 range 17 .. 17;
+      USGFAULTENA    at 0 range 18 .. 18;
+      Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
    type UFSR_Register is record
@@ -256,117 +268,255 @@ is
       Reserved_10_15 at 0 range 10 .. 15;
    end record;
 
-   type SCB_CFSR_Register is record
+   type CFSR_Register is record
       MemManage  : MMFSR_Register;
       BusFault   : BFSR_Register;
       UsageFault : UFSR_Register;
    end record with Object_Size => 32;
 
-   for SCB_CFSR_Register use record
+   for CFSR_Register use record
       MemManage  at 0 range 0 .. 7;
       BusFault   at 0 range 8 .. 15;
       UsageFault at 0 range 16 .. 31;
    end record;
 
-   type SCB_HFSR_Register is record
-      Reserved_0_0  : Boolean;
-      VECTTBL       : Boolean;
-      Reserved_2_29 : A0B.Types.Reserved_28;
-      FORCED        : Boolean;
-      DEBUGEVT      : Boolean;
-   end record with Object_Size => 32;
+   type SHPR_Register is
+     array (A0B.ARMv7M.Exception_Number range 4 .. 15)
+       of A0B.ARMv7M.Priority_Value;
 
-   for SCB_HFSR_Register use record
-      Reserved_0_0  at 0 range 0 .. 0;
-      VECTTBL       at 0 range 1 .. 1;
-      Reserved_2_29 at 0 range 2 .. 29;
-      FORCED        at 0 range 30 .. 30;
-      DEBUGEVT      at 0 range 31 .. 31;
-   end record;
+   --  CPUID    : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED00#);
+   --  CPUID Base Register
 
-   type SCB_Registers is record
-      CPUID    : A0B.Types.Reserved_32;
-      ICSR     : SCB_ICSR_Register   with Volatile, Full_Access_Only;
-      VTOR     : A0B.Types.Reserved_32;
-      AIRCR    : A0B.Types.Reserved_32;
-      SCR      : A0B.Types.Reserved_32;
-      CCR      : SCB_CCR_Register    with Volatile, Full_Access_Only;
-      SHPR     : SCB_SHPR_Register   with Volatile;
-      --  SHPR is a set of SHPR1/SHPR2/SHPR3 registers.
-      --  It is byte, aligned halfword, and word accessible.
-      SHCSR    : SCB_SHCSR_Register  with Volatile, Full_Access_Only;
-      CFSR     : SCB_CFSR_Register   with Volatile;
-      HFSR     : SCB_HFSR_Register   with Volatile, Full_Access_Only;
-      DFSR     : A0B.Types.Reserved_32;
-      MMFAR    : System.Address      with Volatile, Full_Access_Only;
-      BFAR     : System.Address      with Volatile, Full_Access_Only;
-      AFSR     : A0B.Types.Reserved_32;
+   ICSR     : ICSR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED04#);
+   --  Interrupt Control and State Register
 
-      --  ARMv7-M CPUID subblock begin
+   --  VTOR     : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED08#);
+   --  Vector Table Offset Register
 
-      ID_PFR0  : A0B.Types.Reserved_32;
-      ID_PFR1  : A0B.Types.Reserved_32;
-      ID_DFR0  : A0B.Types.Reserved_32;
-      ID_AFR0  : A0B.Types.Reserved_32;
-      ID_MMFR0 : A0B.Types.Reserved_32;
-      ID_MMFR1 : A0B.Types.Reserved_32;
-      ID_MMFR2 : A0B.Types.Reserved_32;
-      ID_MMFR3 : A0B.Types.Reserved_32;
-      ID_ISAR0 : A0B.Types.Reserved_32;
-      ID_ISAR1 : A0B.Types.Reserved_32;
-      ID_ISAR2 : A0B.Types.Reserved_32;
-      ID_ISAR3 : A0B.Types.Reserved_32;
-      ID_ISAR4 : A0B.Types.Reserved_32;
-      ID_ISAR5 : A0B.Types.Reserved_32;
-      CLIDR    : A0B.Types.Reserved_32;
-      CTR      : A0B.Types.Reserved_32;
-      CCSIDR   : SCB_CCSIDR_Register with Volatile, Full_Access_Only;
-      CSSELR   : SCB_CSSELR_Register with Volatile, Full_Access_Only;
+   --  AIRCR    : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED0C#);
+   --  Application Interrupt and Reset Control Register
 
-      --  ARMv7-M CPUID subblock end
+   --  SCR      : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED10#);
+   --  System Control Register
 
-      CPACR    : SCB_CPACR_Register  with Volatile, Full_Access_Only;
-   end record;
+   CCR      : CCR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED14#);
+   --  Configuration and Control Register
 
-   for SCB_Registers use record
-      CPUID    at 16#00# range 0 .. 31;
-      ICSR     at 16#04# range 0 .. 31;
-      VTOR     at 16#08# range 0 .. 31;
-      AIRCR    at 16#0C# range 0 .. 31;
-      SCR      at 16#10# range 0 .. 31;
-      CCR      at 16#14# range 0 .. 31;
-      SHPR     at 16#18# range 0 .. 95;
-      SHCSR    at 16#24# range 0 .. 31;
-      CFSR     at 16#28# range 0 .. 31;
-      HFSR     at 16#2C# range 0 .. 31;
-      DFSR     at 16#30# range 0 .. 31;
-      MMFAR    at 16#34# range 0 .. 31;
-      BFAR     at 16#38# range 0 .. 31;
-      AFSR     at 16#3C# range 0 .. 31;
-      ID_PFR0  at 16#40# range 0 .. 31;
-      ID_PFR1  at 16#44# range 0 .. 31;
-      ID_DFR0  at 16#48# range 0 .. 31;
-      ID_AFR0  at 16#4C# range 0 .. 31;
-      ID_MMFR0 at 16#50# range 0 .. 31;
-      ID_MMFR1 at 16#54# range 0 .. 31;
-      ID_MMFR2 at 16#58# range 0 .. 31;
-      ID_MMFR3 at 16#5C# range 0 .. 31;
-      ID_ISAR0 at 16#60# range 0 .. 31;
-      ID_ISAR1 at 16#64# range 0 .. 31;
-      ID_ISAR2 at 16#68# range 0 .. 31;
-      ID_ISAR3 at 16#6C# range 0 .. 31;
-      ID_ISAR4 at 16#70# range 0 .. 31;
-      ID_ISAR5 at 16#74# range 0 .. 31;
-      CLIDR    at 16#78# range 0 .. 31;
-      CTR      at 16#7C# range 0 .. 31;
-      CCSIDR   at 16#80# range 0 .. 31;
-      CSSELR   at 16#84# range 0 .. 31;
-      CPACR    at 16#88# range 0 .. 31;
-   end record;
+   SHPR     : SHPR_Register
+     with Import,
+          Volatile,
+          Address => System.Storage_Elements.To_Address (16#E000_ED18#);
+   --  System Handler Priority Register 1/2/3
+   --
+   --  SHPR is a set of SHPR1/SHPR2/SHPR3 registers.
+   --
+   --  It is byte, aligned halfword, and word accessible, see
+   --  [ARM B3.2.10..B3.2.12].
 
-   SCB_Base       : constant System.Address :=
-     System.Storage_Elements.To_Address (16#E000_ED00#);
+   SHCSR    : SHCSR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED24#);
+   --  System Handler Control and State Register
 
-   SCB       : SCB_Registers       with Import, Address => SCB_Base;
+   CFSR     : CFSR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED28#);
+   --  Configurable Fault Status Register
+
+   HFSR     : HFSR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED2C#);
+   --  HardFault Status Register
+
+   --  DFSR     : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED30#);
+   --  Debug Fault Status Register
+
+   MMFAR    : System.Storage_Elements.Integer_Address
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED34#);
+   --  MemManage Fault Address Register
+
+   BFAR     : System.Storage_Elements.Integer_Address
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED38#);
+   --  BusFault Address Register
+
+   --  AFSR     : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED3C#);
+   --  Auxiliary Fault Status Register
+
+   --  ID_PFR0  : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED40#);
+   --  Processor Feature Register 0
+
+   --  ID_PFR1  : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED44#);
+   --  Processor Feature Register 1
+
+   --  ID_DFR0  : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED48#);
+   --  Debug Feature Register 0
+
+   --  ID_AFR0  : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED4C#);
+   --  Auxiliary Feature Register 0
+
+   --  ID_MMFR0 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED50#);
+   --  Memory Model Feature Register 0
+
+   --  ID_MMFR1 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED54#);
+   --  Memory Model Feature Register 1
+
+   --  ID_MMFR2 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED58#);
+   --  Memory Model Feature Register 2
+
+   --  ID_MMFR3 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED5C#);
+   --  Memory Model Feature Register 3
+
+   --  ID_ISAR0 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED60#);
+   --  Instruction Set Attribute Register 0
+
+   --  ID_ISAR1 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED64#);
+   --  Instruction Set Attribute Register 1
+
+   --  ID_ISAR2 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED68#);
+   --  Instruction Set Attribute Register 2
+
+   --  ID_ISAR3 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED6C#);
+   --  Instruction Set Attribute Register 3
+
+   --  ID_ISAR4 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED70#);
+   --  Instruction Set Attribute Register 4
+
+   --  ID_ISAR5 : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED74#);
+   --  ID_ISAR5: Reserved, RAZ
+
+   --  CLIDR    : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED78#);
+   --  Cache Level ID Register
+
+   --  CTR      : A0B.Types.Reserved_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED7C#);
+   --  Cache Type Register
+
+   CCSIDR   : CCSIDR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED80#);
+   --  Cache Size ID Registers
+
+   CSSELR   : CSSELR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED84#);
+   --  Cache Size Selection Register
+
+   CPACR    : CPACR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED88#);
+   --  Coprocessor Access Control Register
 
 end A0B.ARMv7M.System_Control_Block;
