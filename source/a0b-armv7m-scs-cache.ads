@@ -5,10 +5,13 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
-package A0B.ARMv7M.System_Control_Block.Cache
+with System.Storage_Elements;
+
+with A0B.Types;
+
+package A0B.ARMv7M.SCS.Cache
   with Preelaborate
 is
 
@@ -55,4 +58,4 @@ is
           Address => System.Storage_Elements.To_Address (16#E000_EF70#);
    --  D-cache clean and invalidate by MVA to PoC
 
-end A0B.ARMv7M.System_Control_Block.Cache;
+end A0B.ARMv7M.SCS.Cache;
