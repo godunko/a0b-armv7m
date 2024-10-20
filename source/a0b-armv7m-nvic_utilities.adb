@@ -8,7 +8,7 @@ pragma Restrictions (No_Elaboration_Code);
 
 pragma Ada_2022;
 
-with A0B.ARMv7M.NVIC; use A0B.ARMv7M.NVIC;
+with A0B.ARMv7M.SCS.NVIC; use A0B.ARMv7M.SCS.NVIC;
 with A0B.Types;
 
 package body A0B.ARMv7M.NVIC_Utilities is
@@ -36,7 +36,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
         A0B.Types.Shift_Left (1, Integer (Bit));
 
       ICPR  : NVIC_Register_Set
-        with Import, Convention => Ada, Address => NVIC.ICPR'Address;
+        with Import, Convention => Ada,
+             Address => A0B.ARMv7M.SCS.NVIC.ICPR'Address;
 
    begin
       ICPR (Index) := Word (Mask);
@@ -55,7 +56,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
         A0B.Types.Shift_Left (1, Integer (Bit));
 
       ICER  : NVIC_Register_Set
-        with Import, Convention => Ada, Address => NVIC.ICER'Address;
+        with Import, Convention => Ada,
+             Address => A0B.ARMv7M.SCS.NVIC.ICER'Address;
 
    begin
       ICER (Index) := Word (Mask);
@@ -74,7 +76,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
         A0B.Types.Shift_Left (1, Integer (Bit));
 
       ISER  : NVIC_Register_Set
-        with Import, Convention => Ada, Address => NVIC.ISER'Address;
+        with Import, Convention => Ada,
+             Address => A0B.ARMv7M.SCS.NVIC.ISER'Address;
 
    begin
       ISER (Index) := Word (Mask);
@@ -103,7 +106,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
         A0B.Types.Shift_Left (1, Integer (Bit));
 
       ISPR  : NVIC_Register_Set
-        with Import, Convention => Ada, Address => NVIC.ISPR'Address;
+        with Import, Convention => Ada,
+             Address => A0B.ARMv7M.SCS.NVIC.ISPR'Address;
 
    begin
       ISPR (Index) := Word (Mask);
