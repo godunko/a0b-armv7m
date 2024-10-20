@@ -12,7 +12,7 @@ with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.DWT
+package A0B.ARMv7M.SCS.DWT
   with Preelaborate
 is
 
@@ -129,36 +129,44 @@ is
    end record;
 
    DWT_CTRL   : DWT_CTRL_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1000#);
    DWT_CYCCNT : DWT_CYCCNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1004#);
    DWT_CPICNT : DWT_CPICNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1008#);
    DWT_EXCCNT : DWT_EXCCNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_100C#);
    DWT_SLEEPCNT : DWT_SLEEPCNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1010#);
    DWT_LSUCNT   : DWT_LSUCNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1014#);
    DWT_FOLDCNT  : DWT_FOLDCNT_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1018#);
    DWT_PCSR     : DWT_PCSR_Register
-     with Volatile,
+     with Import,
+          Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_101C#);
 
-end A0B.ARMv7M.DWT;
+end A0B.ARMv7M.SCS.DWT;
