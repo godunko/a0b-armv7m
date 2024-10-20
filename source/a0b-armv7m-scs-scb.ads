@@ -5,14 +5,13 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.System_Control_Block
+package A0B.ARMv7M.SCS.SCB
   with Preelaborate
 is
 
@@ -519,4 +518,4 @@ is
           Address => System.Storage_Elements.To_Address (16#E000_ED88#);
    --  Coprocessor Access Control Register
 
-end A0B.ARMv7M.System_Control_Block;
+end A0B.ARMv7M.SCS.SCB;
