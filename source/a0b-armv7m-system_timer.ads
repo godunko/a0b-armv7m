@@ -5,7 +5,6 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with System.Storage_Elements;
@@ -15,6 +14,20 @@ with A0B.Types;
 package A0B.ARMv7M.System_Timer
   with Preelaborate
 is
+
+   type SYST_CALIB_Register is record
+      TENMS          : A0B.Types.Unsigned_24;
+      Reserved_24_29 : A0B.Types.Reserved_6;
+      SKEW           : Boolean;
+      NOREF          : Boolean;
+   end record with Object_Size => 32;
+
+   for SYST_CALIB_Register use record
+      TENMS          at 0 range 0 .. 23;
+      Reserved_24_29 at 0 range 24 .. 29;
+      SKEW           at 0 range 30 .. 30;
+      NOREF          at 0 range 31 .. 31;
+   end record;
 
    type SYST_CSR_Register is record
       ENABLE         : Boolean := False;
@@ -34,6 +47,10 @@ is
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
 
+   type SYST_CVR_Register is record
+      CURRENT : A0B.Types.Unsigned_32;
+   end record with Object_Size => 32;
+
    type SYST_RVR_Register is record
       RELOAD         : A0B.Types.Unsigned_24 := 0;
       Reserved_24_31 : A0B.Types.Reserved_8;
@@ -44,39 +61,32 @@ is
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
-   type SYST_CVR_Register is record
-      CURRENT : A0B.Types.Unsigned_32;
-   end record with Object_Size => 32;
+   SYST_CSR   : SYST_CSR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_E010#);
+   --  SysTick Control and Status Register
 
-   type SYST_CALIB_Register is record
-      TENMS          : A0B.Types.Unsigned_24;
-      Reserved_24_29 : A0B.Types.Reserved_6;
-      SKEW           : Boolean;
-      NOREF          : Boolean;
-   end record with Object_Size => 32;
+   SYST_RVR   : SYST_RVR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_E014#);
+   --  SysTick Reload Value Register
 
-   for SYST_CALIB_Register use record
-      TENMS          at 0 range 0 .. 23;
-      Reserved_24_29 at 0 range 24 .. 29;
-      SKEW           at 0 range 30 .. 30;
-      NOREF          at 0 range 31 .. 31;
-   end record;
+   SYST_CVR   : SYST_CVR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_E018#);
+   --  SysTick Current Value Register
 
-   type SYST_Registers is record
-      CSR : SYST_CSR_Register with Volatile, Full_Access_Only;
-      RVR : SYST_RVR_Register with Volatile, Full_Access_Only;
-      CVR : SYST_CVR_Register with Volatile, Full_Access_Only;
-   end record;
-
-   for SYST_Registers use record
-      CSR at 0 range 0 .. 31;
-      RVR at 4 range 0 .. 31;
-      CVR at 8 range 0 .. 31;
-   end record;
-
-   SYST_Base : constant System.Address :=
-     System.Storage_Elements.To_Address (16#E000E010#);
-
-   SYST : SYST_Registers with Import, Address => SYST_Base;
+   SYST_CALIB : SYST_CALIB_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_E01C#);
+   --  SysTick Calibration value Register
 
 end A0B.ARMv7M.System_Timer;
