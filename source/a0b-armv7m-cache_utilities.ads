@@ -12,10 +12,10 @@ package A0B.ARMv7M.Cache_Utilities
   with Preelaborate
 is
 
-   procedure Enable_ICache;
+   procedure Enable_ICache with Inline_Always;
    --  Turns on I-Cache
 
-   procedure Enable_DCache;
+   procedure Enable_DCache with Inline_Always;
    --  Turns on D-Cache
 
    procedure Invalidate_DCache
