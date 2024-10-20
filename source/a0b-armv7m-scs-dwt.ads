@@ -128,22 +128,22 @@ is
       EIASAMPLE at 0 range 0 .. 31;
    end record;
 
-   DWT_CTRL   : DWT_CTRL_Register
+   DWT_CTRL     : DWT_CTRL_Register
      with Import,
           Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1000#);
-   DWT_CYCCNT : DWT_CYCCNT_Register
+   DWT_CYCCNT   : DWT_CYCCNT_Register
      with Import,
           Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1004#);
-   DWT_CPICNT : DWT_CPICNT_Register
+   DWT_CPICNT   : DWT_CPICNT_Register
      with Import,
           Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_1008#);
-   DWT_EXCCNT : DWT_EXCCNT_Register
+   DWT_EXCCNT   : DWT_EXCCNT_Register
      with Import,
           Volatile,
           Full_Access_Only,
