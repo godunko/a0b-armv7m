@@ -434,18 +434,6 @@ is
       MVFR2  at 20 range 0 .. 31;
    end record;
 
-   type SCB_Cache_Registers is record
-      ICIALLU : A0B.Types.Unsigned_32 with Volatile, Full_Access_Only;
-    --    ICIMVAU
-      DCISW   : A0B.Types.Unsigned_32 with Volatile, Full_Access_Only;
-      --  This register has "dynamic" strusture.
-   end record;
-
-   for SCB_Cache_Registers use record
-      ICIALLU at 16#00# range 0 .. 31;
-      DCISW   at 16#10# range 0 .. 31;
-   end record;
-
    SCB_Base       : constant System.Address :=
      System.Storage_Elements.To_Address (16#E000_ED00#);
    SCB_FP_Base    : constant System.Address :=
@@ -455,6 +443,5 @@ is
 
    SCB       : SCB_Registers       with Import, Address => SCB_Base;
    SCB_FP    : SCB_FP_Registers    with Import, Address => SCB_FP_Base;
-   SCB_Cache : SCB_Cache_Registers with Import, Address => SCB_Cache_Base;
 
 end A0B.ARMv7M.System_Control_Block;
