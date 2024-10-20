@@ -5,14 +5,13 @@
 --
 
 pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with System.Storage_Elements;
 
 with A0B.Types;
 
-package A0B.ARMv7M.Memory_Protection_Unit
+package A0B.ARMv7M.SCS.MPU
   with Preelaborate
 is
 
@@ -117,4 +116,4 @@ is
 
    MPU : MPU_Registers with Import, Address => MPU_Base;
 
-end A0B.ARMv7M.Memory_Protection_Unit;
+end A0B.ARMv7M.SCS.MPU;
