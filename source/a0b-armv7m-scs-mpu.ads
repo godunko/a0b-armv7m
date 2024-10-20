@@ -29,28 +29,6 @@ is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   type MPU_RNR_Register is record
-      REGION        : A0B.Types.Unsigned_8  := 0;
-      Reserved_8_31 : A0B.Types.Unsigned_24 := 0;
-   end record with Object_Size => 32;
-
-   for MPU_RNR_Register use record
-      REGION        at 0 range 0 .. 7;
-      Reserved_8_31 at 0 range 8 .. 31;
-   end record;
-
-   type MPU_RBAR_Register is record
-      --  REGION : A0B.Types.Unsigned_4;
-      --  VALID  : Boolean;
-      ADDR : System.Address;
-   end record with Object_Size => 32;
-
-   for MPU_RBAR_Register use record
-      --  REGION at 0 range 0 .. 3;
-      --  VALID  at 0 range 4 .. 4;
-      ADDR at 0 range 0 .. 31;  --  5 .. 31;
-   end record;
-
    type MPU_RASR_Register is record
       ENABLE         : Boolean;
       SIZE           : A0B.Types.Unsigned_5;
@@ -83,37 +61,103 @@ is
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
 
-   type MPU_Registers is record
-      MPU_TYPE    : A0B.Types.Unsigned_32;
-      MPU_CTRL    : MPU_CTRL_Register with Volatile, Full_Access_Only;
-      MPU_RNR     : MPU_RNR_Register  with Volatile, Full_Access_Only;
-      MPU_RBAR    : MPU_RBAR_Register with Volatile, Full_Access_Only;
-      MPU_RASR    : MPU_RASR_Register with Volatile, Full_Access_Only;
-      MPU_RBAR_A1 : A0B.Types.Unsigned_32;
-      MPU_RASR_A1 : A0B.Types.Unsigned_32;
-      MPU_RBAR_A2 : A0B.Types.Unsigned_32;
-      MPU_RASR_A2 : A0B.Types.Unsigned_32;
-      MPU_RBAR_A3 : A0B.Types.Unsigned_32;
-      MPU_RASR_A3 : A0B.Types.Unsigned_32;
+   type MPU_RBAR_Register is record
+      --  REGION : A0B.Types.Unsigned_4;
+      --  VALID  : Boolean;
+      ADDR : System.Address;
+   end record with Object_Size => 32;
+
+   for MPU_RBAR_Register use record
+      --  REGION at 0 range 0 .. 3;
+      --  VALID  at 0 range 4 .. 4;
+      ADDR at 0 range 0 .. 31;  --  5 .. 31;
    end record;
 
-   for MPU_Registers use record
-      MPU_TYPE    at 16#00# range 0 .. 31;
-      MPU_CTRL    at 16#04# range 0 .. 31;
-      MPU_RNR     at 16#08# range 0 .. 31;
-      MPU_RBAR    at 16#0C# range 0 .. 31;
-      MPU_RASR    at 16#10# range 0 .. 31;
-      MPU_RBAR_A1 at 16#14# range 0 .. 31;
-      MPU_RASR_A1 at 16#18# range 0 .. 31;
-      MPU_RBAR_A2 at 16#1C# range 0 .. 31;
-      MPU_RASR_A2 at 16#20# range 0 .. 31;
-      MPU_RBAR_A3 at 16#24# range 0 .. 31;
-      MPU_RASR_A3 at 16#28# range 0 .. 31;
+   type MPU_RNR_Register is record
+      REGION        : A0B.Types.Unsigned_8  := 0;
+      Reserved_8_31 : A0B.Types.Unsigned_24 := 0;
+   end record with Object_Size => 32;
+
+   for MPU_RNR_Register use record
+      REGION        at 0 range 0 .. 7;
+      Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   MPU_Base : constant System.Address :=
-     System.Storage_Elements.To_Address (16#E000_ED90#);
+   --     MPU_TYPE    : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_ED90#);
+   --  MPU Type Register
 
-   MPU : MPU_Registers with Import, Address => MPU_Base;
+   MPU_CTRL    : MPU_CTRL_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED94#);
+   --  MPU Control Register
+
+   MPU_RNR     : MPU_RNR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED98#);
+   --  MPU Region Number Register
+
+   MPU_RBAR    : MPU_RBAR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED9C#);
+   --  MPU Region Base Address Register
+
+   MPU_RASR    : MPU_RASR_Register
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_EDA0#);
+   --  MPU Region Attribute and Size Register
+
+   --     MPU_RBAR_A1 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDA4#);
+   --  Alias 1 of MPU_RBAR
+
+   --     MPU_RASR_A1 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDA8#);
+   --  Alias 1 of MPU_RASR
+
+   --     MPU_RBAR_A2 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDAC#);
+   --  Alias 2 of MPU_RBAR
+
+   --     MPU_RASR_A2 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDB0#);
+   --  Alias 2 of MPU_RASR
+
+   --     MPU_RBAR_A3 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDB4#);
+   --  Alias 3 of MPU_RBAR
+
+   --     MPU_RASR_A3 : A0B.Types.Unsigned_32;
+   --    with Import,
+   --         Volatile,
+   --         Full_Access_Only,
+   --         Address => System.Storage_Elements.To_Address (16#E000_EDB8#);
+   --  Alias 3 of MPU_RASR
 
 end A0B.ARMv7M.SCS.MPU;
