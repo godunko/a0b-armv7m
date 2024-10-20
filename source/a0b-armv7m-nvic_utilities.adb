@@ -90,17 +90,6 @@ package body A0B.ARMv7M.NVIC_Utilities is
       return IPR (Interrupt);
    end Get_Priority;
 
-   ------------------
-   -- Set_Priority --
-   ------------------
-
-   procedure Set_Priority
-     (Interrupt : External_Interrupt_Number;
-      Priority  : Priority_Value) is
-   begin
-      IPR (Interrupt) := Priority;
-   end Set_Priority;
-
    -----------------
    -- Set_Pending --
    -----------------
@@ -119,5 +108,16 @@ package body A0B.ARMv7M.NVIC_Utilities is
    begin
       ISPR (Index) := Word (Mask);
    end Set_Pending;
+
+   ------------------
+   -- Set_Priority --
+   ------------------
+
+   procedure Set_Priority
+     (Interrupt : External_Interrupt_Number;
+      Priority  : Priority_Value) is
+   begin
+      IPR (Interrupt) := Priority;
+   end Set_Priority;
 
 end A0B.ARMv7M.NVIC_Utilities;
