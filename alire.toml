@@ -20,8 +20,8 @@ generate_c = false
 FPU_Extension = {type = "Enum", values = ["none", "VFPv4", "VFPv5"]}
 
 [[depends-on]]
-gnat_arm_elf = "*"
 a0b_base = "*"
+gnat_arm_elf = "*"
 
 [[actions]]
 type = "test"
