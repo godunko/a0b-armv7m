@@ -4,7 +4,6 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
 pragma Ada_2022;
 
 with System.Storage_Elements;
@@ -12,7 +11,7 @@ with System.Storage_Elements;
 with A0B.Types;
 
 package A0B.ARMv7M.SCS.Cache
-  with Preelaborate
+  with Preelaborate, No_Elaboration_Code_All
 is
 
    --  0xE000EF58 ICIMVAU WOI-cache invalidate by MVA to PoUaAddress

@@ -4,8 +4,6 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 with A0B.ARMv7M.SCS.DWT;
 
 package body A0B.ARMv7M.Profiling_Utilities is

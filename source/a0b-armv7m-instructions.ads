@@ -6,13 +6,12 @@
 
 --  Various ARMv7 instructions
 
-pragma Restrictions (No_Elaboration_Code);
 with System;
 
 with A0B.Types;
 
 package A0B.ARMv7M.Instructions
-  with Preelaborate
+  with Preelaborate, No_Elaboration_Code_All
 is
 
    procedure Wait_For_Interrupt with Inline_Always;

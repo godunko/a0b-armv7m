@@ -4,8 +4,6 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with A0B.ARMv7M.SCS.NVIC; use A0B.ARMv7M.SCS.NVIC;

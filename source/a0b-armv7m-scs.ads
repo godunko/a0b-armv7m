@@ -8,10 +8,8 @@
 --
 --  Child package provides definitions of specific blocks of registers.
 
-pragma Restrictions (No_Elaboration_Code);
-
 package A0B.ARMv7M.SCS
-  with Pure
+  with Pure, No_Elaboration_Code_All
 is
 
 end A0B.ARMv7M.SCS;

@@ -4,13 +4,11 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 with A0B.Types;
 
-package A0B.ARMv7M.Parameters is
-
-   pragma Preelaborate;
+package A0B.ARMv7M.Parameters
+  with Preelaborate, No_Elaboration_Code_All
+is
 
    CPU_Frequency     : A0B.Types.Unsigned_32 := 0;
    --  Frequency of the CPU core. Must be set by startup code.

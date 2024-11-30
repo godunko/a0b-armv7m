@@ -4,12 +4,10 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 with System.Storage_Elements;
 
 package A0B.ARMv7M.Cache_Utilities
-  with Preelaborate
+  with Preelaborate, No_Elaboration_Code_All
 is
 
    procedure Enable_ICache with Inline_Always;

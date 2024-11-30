@@ -4,10 +4,8 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 package A0B.ARMv7M.NVIC_Utilities
-  with Preelaborate
+  with Preelaborate, No_Elaboration_Code_All
 is
 
    procedure Disable_Interrupt (Interrupt : External_Interrupt_Number);

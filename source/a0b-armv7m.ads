@@ -4,11 +4,9 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
-package A0B.ARMv7M is
-
-   pragma Pure;
+package A0B.ARMv7M
+  with Pure, No_Elaboration_Code_All
+is
 
    type Exception_Number_Field is mod 2 ** 9;
    --  CPU exception number. Exception numbers starts from 1, and 0 value is

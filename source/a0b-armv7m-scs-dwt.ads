@@ -4,8 +4,6 @@
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
 
-pragma Restrictions (No_Elaboration_Code);
-
 pragma Ada_2022;
 
 with System.Storage_Elements;
@@ -13,7 +11,7 @@ with System.Storage_Elements;
 with A0B.Types;
 
 package A0B.ARMv7M.SCS.DWT
-  with Preelaborate
+  with Preelaborate, No_Elaboration_Code_All
 is
 
    type DWT_CTRL_Register is record
