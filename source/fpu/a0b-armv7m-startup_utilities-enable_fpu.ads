@@ -6,7 +6,5 @@
 
 --  Enables floating point coprocessor.
 
-pragma Restrictions (No_Elaboration_Code);
-
 procedure A0B.ARMv7M.Startup_Utilities.Enable_FPU
-  with Preelaborate, Inline_Always;
+  with Preelaborate, No_Elaboration_Code_All, Inline_Always;
