@@ -1,6 +1,6 @@
 name = "a0b_armv7m"
 description = "ARMv7-M support (Cortex-M3, Cortex-M4, Cortex-M7)"
-website = "https://github.com/godunko/a0b-base"
+website = "https://github.com/godunko/a0b-armv7m"
 version = "0.4.0-dev"
 
 authors = ["Vadim Godunko"]
