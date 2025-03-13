@@ -1,3 +1,5 @@
+[![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/a0b_armv7m.json)](https://alire.ada.dev/crates/a0b_armv7m.html)
+
 # ARMv7-M Support (Cortex-M3/M4/M7)
 
 This crate provides registers description of ARMv7-M CPUs, as well as some utility subprograms, including reading/setting of the system registers and data/instruction synchronization.
