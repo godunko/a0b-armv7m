@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2025, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -33,6 +33,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
       Mask  : constant A0B.Types.Unsigned_32 :=
         A0B.Types.Shift_Left (1, Integer (Bit));
 
+      pragma Warnings (Off, """ICPR"" overlays smaller object");
+      --  ARMv7 doesn't use few bits of last word, suppress warning
       ICPR  : NVIC_Register_Set
         with Import, Convention => Ada,
              Address => A0B.ARMv7M.SCS.NVIC.ICPR'Address;
@@ -53,6 +55,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
       Mask  : constant A0B.Types.Unsigned_32 :=
         A0B.Types.Shift_Left (1, Integer (Bit));
 
+      pragma Warnings (Off, """ICER"" overlays smaller object");
+      --  ARMv7 doesn't use few bits of last word, suppress warning
       ICER  : NVIC_Register_Set
         with Import, Convention => Ada,
              Address => A0B.ARMv7M.SCS.NVIC.ICER'Address;
@@ -73,6 +77,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
       Mask  : constant A0B.Types.Unsigned_32 :=
         A0B.Types.Shift_Left (1, Integer (Bit));
 
+      pragma Warnings (Off, """ISER"" overlays smaller object");
+      --  ARMv7 doesn't use few bits of last word, suppress warning
       ISER  : NVIC_Register_Set
         with Import, Convention => Ada,
              Address => A0B.ARMv7M.SCS.NVIC.ISER'Address;
@@ -103,6 +109,8 @@ package body A0B.ARMv7M.NVIC_Utilities is
       Mask  : constant A0B.Types.Unsigned_32 :=
         A0B.Types.Shift_Left (1, Integer (Bit));
 
+      pragma Warnings (Off, """ISPR"" overlays smaller object");
+      --  ARMv7 doesn't use few bits of last word, suppress warning
       ISPR  : NVIC_Register_Set
         with Import, Convention => Ada,
              Address => A0B.ARMv7M.SCS.NVIC.ISPR'Address;
