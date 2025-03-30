@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2025, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -135,14 +135,14 @@ package body A0B.ARMv7M.Cache_Utilities is
       --  thus
       --    Set_Shift = LineSize + Log2 (4) + 2
 
-      Way_Shift := Natural (clz (A0B.Types.Unsigned_32 (Ways)));
+      Way_Shift := Natural (clz (Ways));
 
       --  Invalidate data cache line by line.
 
-      Way := A0B.Types.Unsigned_32 (Ways);
+      Way := Ways;
 
       loop
-         Set := A0B.Types.Unsigned_32 (Sets);
+         Set := Sets;
 
          loop
             declare
