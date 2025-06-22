@@ -15,6 +15,8 @@
  *   DEFAULT_BSS
  *   DEFAULT_STACK
  *
+ *   DEFAULT_STACK_SIZE  GNAT: size of the stack
+ *
  * This script exports following symbols to be used by startup code:
  *   _sdata    start of the preinitialized data (in RAM)
  *   _edata    end of the preinitialized data (in RAM)
@@ -22,11 +24,12 @@
  *   _sbss     start of the uninitialized data (in RAM)
  *   _ebss     start of the uninitialized data (in RAM)
  *   _estack   address of the initial stack pointer
+ *
+ *  __stack_start  GNAT: start address of the stack
+ *  __stack_end    GNAT: end address of the stack
  */
 
 ENTRY(Reset_Handler)
-
-_estack = ORIGIN(DEFAULT_STACK) + LENGTH (DEFAULT_STACK);
 
 SECTIONS
 {
@@ -70,6 +73,11 @@ SECTIONS
 
         . = ALIGN(4);     /* Ensure that the end of the section is word aligned */
         _ebss = .;        /* Global symbol at bss end */
-    } > DEFAULT_BSS
 
+        . = ALIGN(0x8);
+        __stack_start = .;
+        . += DEFAULT_STACK_SIZE;
+        . = ALIGN(0x8);
+        __stack_end = .;
+    } > DEFAULT_BSS
 }
