@@ -35,8 +35,7 @@ SECTIONS
        sections */
     .vectors :
     {
-        KEEP(*(.vectors.exceptions.*))
-        KEEP(*(.vectors.interrupts.*))
+        KEEP(*(.vectors))
     } > DEFAULT_VECTORS
 
     .text :
