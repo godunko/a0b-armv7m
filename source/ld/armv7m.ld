@@ -74,6 +74,14 @@ SECTIONS
         . = ALIGN(4);     /* Ensure that the end of the section is word aligned */
         _ebss = .;        /* Global symbol at bss end */
 
+	/* GNAT: per CPU interrupt stack(s) */
+        . = ALIGN(0x8);
+        __interrupt_stack_start = .;
+        *(.noinit.interrupt_stacks)
+        . = ALIGN(0x8);
+        __interrupt_stack_end = .;
+
+	/* GNAT: application stack */
         . = ALIGN(0x8);
         __stack_start = .;
         . += DEFAULT_STACK_SIZE;
