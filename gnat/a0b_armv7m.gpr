@@ -10,36 +10,13 @@ with "../config/a0b_armv7m_config";
 
 library project A0B_ARMv7M is
 
-   --  Configuration parameters below must be defined in alire.toml of the
-   --  board support packages.
-   --
-   --  They doesn't have default values to prevent be undefined, thus stop
-   --  compiler from produce invalid or dangerous code.
-
-   FPU_Extension := A0B_ARMv7M_Config.FPU_Extension;
-
    for Target use "arm-eabi";
 
    for Library_Name use "a0b_armv7m";
    for Library_Dir use "../.libs/" & A0B_Common.Library_Dir_Suffix;
    for Object_Dir use "../.objs/" & A0B_Common.Object_Dir_Suffix;
 
-   Common_Source_Dirs := ("../source");
-   FPU_Source_Dirs := ("../source/fpu");
-
-   case FPU_Extension is
-      when "none" =>
-         for Source_Dirs use Common_Source_Dirs;
-
-      when "VFPv4" =>
-         for Source_Dirs use Common_Source_Dirs & FPU_Source_Dirs;
-
-      when "VFPv5" =>
-         for Source_Dirs use Common_Source_Dirs & FPU_Source_Dirs;
-
-      when others =>
-         null;
-   end case;
+   for Source_Dirs use ("../source");
 
    package Compiler is
       for Switches ("Ada") use A0B_Common.Compiler_Switches_Ada;

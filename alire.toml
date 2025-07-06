@@ -12,13 +12,14 @@ project-files=["gnat/a0b_armv7m.gpr"]
 
 tags = ["a0b", "embedded", "armv7m", "cortex-m", "cortex-m3", "cortex-m4", "cortex-m7"]
 
+[configuration.variables]
+FPU_Extension = {type = "Enum", values = ["undefined", "none", "VFPv4", "VFPv5"], default="undefined"}
+# This configuration varible is not used by the crate, and it is not clear now should, or should not be preserved.
+
 [configuration]
 generate_ada = false
 generate_gpr = true
 generate_c = false
-
-[configuration.variables]
-FPU_Extension = {type = "Enum", values = ["none", "VFPv4", "VFPv5"]}
 
 [[depends-on]]
 a0b_base = "*"
