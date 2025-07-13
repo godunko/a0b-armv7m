@@ -87,5 +87,9 @@ SECTIONS
         . += DEFAULT_STACK_SIZE;
         . = ALIGN(0x8);
         __stack_end = .;
+
+	/* GNAT: heap for `light` runtime */
+        __heap_start = .;
+        __heap_end = ORIGIN(DEFAULT_BSS) + LENGTH(DEFAULT_BSS);
     } > DEFAULT_BSS
 }
