@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -125,5 +125,12 @@ is
    --  Set Process Stack Pointer
    --
    --  Assigns the given value to the Process Stack Pointer (PSP).
+
+   function Reverse_Bits
+     (Value : A0B.Types.Unsigned_32) return A0B.Types.Unsigned_32
+        with Inline_Always;
+   --  Reverse Bits
+   --
+   --  Reverses the bit order in a 32-bit register.
 
 end A0B.ARMv7M.Instructions;

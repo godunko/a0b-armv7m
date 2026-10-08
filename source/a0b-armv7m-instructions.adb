@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -135,6 +135,22 @@ package body A0B.ARMv7M.Instructions is
          Clobber  => "memory",
          Volatile => True);
    end Instruction_Synchronization_Barrier;
+
+   ------------------
+   -- Reverse_Bits --
+   ------------------
+
+   function Reverse_Bits
+     (Value : A0B.Types.Unsigned_32) return A0B.Types.Unsigned_32 is
+   begin
+      return Result : A0B.Types.Unsigned_32 do
+         System.Machine_Code.Asm
+           (Template => "rbit %0, %1",
+            Inputs   => A0B.Types.Unsigned_32'Asm_Input ("r", Value),
+            Outputs  => A0B.Types.Unsigned_32'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Reverse_Bits;
 
    -----------------
    -- Set_BASEPRI --
