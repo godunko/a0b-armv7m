@@ -110,6 +110,20 @@ package body A0B.ARMv7M.Instructions is
       end return;
    end Get_MSP;
 
+   -----------------
+   -- Get_PRIMASK --
+   -----------------
+
+   function Get_PRIMASK return Boolean is
+   begin
+      return Result : Boolean do
+         System.Machine_Code.Asm
+           (Template => "mrs %0, primask",
+            Outputs  => Boolean'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Get_PRIMASK;
+
    -------------
    -- Get_PSP --
    -------------
@@ -190,6 +204,19 @@ package body A0B.ARMv7M.Instructions is
          Clobber  => "memory",
          Volatile => True);
    end Set_MSP;
+
+   -----------------
+   -- Set_PRIMASK --
+   -----------------
+
+   procedure Set_PRIMASK (To : Boolean) is
+   begin
+      System.Machine_Code.Asm
+        (Template => "msr primask, %0",
+         Inputs   => Boolean'Asm_Input ("r", To),
+         Clobber  => "memory",
+         Volatile => True);
+   end Set_PRIMASK;
 
    -------------
    -- Set_PSP --

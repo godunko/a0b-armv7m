@@ -106,6 +106,16 @@ is
    --  XXX Note, GCC 13.2 fails to compile code when register is represented
    --  as record like other registers.
 
+   function Get_PRIMASK return Boolean with Inline_Always;
+   --  Get Primary Mask
+   --
+   --  Returns the current state of the Primary Mask (PRIMASK).
+
+   procedure Set_PRIMASK (To : Boolean) with Inline_Always;
+   --  Set Primary Mask
+   --
+   --  Assigns the given value to the Primary Mask (PRIMASK).
+
    function Get_MSP return System.Address with Inline_Always;
    --  Get Main Stack Pointer
    --
