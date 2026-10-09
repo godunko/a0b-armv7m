@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -282,6 +282,24 @@ is
      array (A0B.ARMv7M.Exception_Number range 4 .. 15)
        of A0B.ARMv7M.Priority_Value;
 
+   type SCR_Register is record
+      Reserved_0    : A0B.Types.Reserved_1;
+      SLEEPONEXIT   : Boolean;
+      SLEEPDEEP     : Boolean;
+      Reserved_3    : A0B.Types.Reserved_1;
+      SEVONPEND     : Boolean;
+      Reserved_5_31 : A0B.Types.Reserved_27;
+   end record with Object_Size => 32;
+
+   for SCR_Register use record
+      Reserved_0    at 0 range 0 .. 0;
+      SLEEPONEXIT   at 0 range 1 .. 1;
+      SLEEPDEEP     at 0 range 2 .. 2;
+      Reserved_3    at 0 range 3 .. 3;
+      SEVONPEND     at 0 range 4 .. 4;
+      Reserved_5_31 at 0 range 5 .. 31;
+   end record;
+
    --  CPUID    : A0B.Types.Reserved_32;
    --    with Import,
    --         Volatile,
@@ -310,11 +328,11 @@ is
    --         Address => System.Storage_Elements.To_Address (16#E000_ED0C#);
    --  Application Interrupt and Reset Control Register
 
-   --  SCR      : A0B.Types.Reserved_32;
-   --    with Import,
-   --         Volatile,
-   --         Full_Access_Only,
-   --         Address => System.Storage_Elements.To_Address (16#E000_ED10#);
+   SCR      : A0B.Types.Reserved_32
+     with Import,
+          Volatile,
+          Full_Access_Only,
+          Address => System.Storage_Elements.To_Address (16#E000_ED10#);
    --  System Control Register
 
    CCR      : CCR_Register
