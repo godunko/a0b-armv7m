@@ -1,5 +1,5 @@
 name = "a0b_armv7m"
-version = "0.5.0-dev"
+version = "0.6.0-dev"
 website = "https://github.com/godunko/a0b-armv7m"
 description = "ARMv7-M support (Cortex-M3, Cortex-M4, Cortex-M7)"
 long-description = """
