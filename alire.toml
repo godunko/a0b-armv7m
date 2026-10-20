@@ -22,8 +22,8 @@ generate_gpr = true
 generate_c = false
 
 [[depends-on]]
-a0b_base = "*"
-gnat_arm_elf = "*"
+a0b_base = "^0.5.0"
+gnat_arm_elf = "^16"
 
 [[actions]]
 type = "test"
