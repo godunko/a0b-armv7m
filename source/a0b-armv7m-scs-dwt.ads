@@ -145,7 +145,7 @@ is
    end record;
 
    type DWT_FUNCTIONn_Register is record
-      Reserved_31_25 : A0B.Types.Reserved_4;
+      Reserved_31_25 : A0B.Types.Reserved_7;
       MATCHED        : Boolean;
       Reserved_23_20 : A0B.Types.Reserved_4;
       DATAVADDR1     : A0B.Types.Unsigned_4;
