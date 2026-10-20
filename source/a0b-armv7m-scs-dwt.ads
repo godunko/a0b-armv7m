@@ -1,5 +1,5 @@
 --
---  Copyright (C) 2024, Vadim Godunko <vgodunko@gmail.com>
+--  Copyright (C) 2024-2026, Vadim Godunko <vgodunko@gmail.com>
 --
 --  SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 --
@@ -126,6 +126,70 @@ is
       EIASAMPLE at 0 range 0 .. 31;
    end record;
 
+   type DWT_COMPn_Register is record
+      COMP : A0B.Types.Unsigned_32;
+   end record with Object_Size => 32;
+
+   for DWT_COMPn_Register use record
+      COMP at 0 range 0 .. 31;
+   end record;
+
+   type DWT_MASKn_Register is record
+      Reserved_31_5 : A0B.Types.Reserved_27;
+      MASK          : A0B.Types.Unsigned_5;
+   end record with Object_Size => 32;
+
+   for DWT_MASKn_Register use record
+      MASK          at 0 range 0 .. 4;
+      Reserved_31_5 at 0 range 5 .. 31;
+   end record;
+
+   type DWT_FUNCTIONn_Register is record
+      Reserved_31_25 : A0B.Types.Reserved_4;
+      MATCHED        : Boolean;
+      Reserved_23_20 : A0B.Types.Reserved_4;
+      DATAVADDR1     : A0B.Types.Unsigned_4;
+      DATAVADDR0     : A0B.Types.Unsigned_4;
+      DATAVSIZE      : A0B.Types.Unsigned_2;
+      LNK1ENA        : Boolean;
+      DATAVMATCH     : Boolean;
+      CYCMATCH       : Boolean;
+      Reserved_6_6   : A0B.Types.Reserved_1;
+      EMITRANGE      : Boolean;
+      Reserved_4_4   : A0B.Types.Reserved_1;
+      FUNCTIONC      : A0B.Types.Unsigned_4;
+   end record with Object_Size => 32;
+
+   for DWT_FUNCTIONn_Register use record
+      FUNCTIONC      at 0 range 0 .. 3;
+      Reserved_4_4   at 0 range 4 .. 4;
+      EMITRANGE      at 0 range 5 .. 5;
+      Reserved_6_6   at 0 range 6 .. 6;
+      CYCMATCH       at 0 range 7 .. 7;
+      DATAVMATCH     at 0 range 8 .. 8;
+      LNK1ENA        at 0 range 9 .. 9;
+      DATAVSIZE      at 0 range 10 .. 11;
+      DATAVADDR0     at 0 range 12 .. 15;
+      DATAVADDR1     at 0 range 16 .. 19;
+      Reserved_23_20 at 0 range 20 .. 23;
+      MATCHED        at 0 range 24 .. 24;
+      Reserved_31_25 at 0 range 25 .. 31;
+   end record;
+
+   type DWT_COMPARATOR_Registers is record
+      DWT_COMPn     : DWT_COMPn_Register     with Volatile, Full_Access_Only;
+      DWT_MASKn     : DWT_MASKn_Register     with Volatile, Full_Access_Only;
+      DWT_FUNCTIONn : DWT_FUNCTIONn_Register with Volatile, Full_Access_Only;
+      Reserved      : A0B.Types.Unsigned_32  with Volatile, Full_Access_Only;
+   end record with Object_Size => 128;
+
+   for DWT_COMPARATOR_Registers use record
+      DWT_COMPn     at 0 range 0 .. 31;
+      DWT_MASKn     at 4 range 0 .. 31;
+      DWT_FUNCTIONn at 8 range 0 .. 31;
+      Reserved      at 12 range 0 .. 31;
+   end record;
+
    DWT_CTRL     : DWT_CTRL_Register
      with Import,
           Volatile,
@@ -166,5 +230,9 @@ is
           Volatile,
           Full_Access_Only,
           Address => System.Storage_Elements.To_Address (16#E000_101C#);
+
+   DWT_COMPARATOR : array (A0B.Types.Unsigned_4) of DWT_COMPARATOR_Registers
+     with Import,
+          Address => System.Storage_Elements.To_Address (16#E000_1020#);
 
 end A0B.ARMv7M.SCS.DWT;
