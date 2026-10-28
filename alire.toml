@@ -41,5 +41,4 @@ gnat_arm_elf = "*"
 
 [[actions]]
 type = "test"
-directory = "selftest"
-command = ["alr", "build"]
+command = ["alr", "build", "--", "--target=arm-eabi", "--RTS=light-cortex-m3"]
