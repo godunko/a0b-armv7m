@@ -96,6 +96,21 @@ package body A0B.ARMv7M.Instructions is
       end return;
    end Get_CONTROL;
 
+   --------------
+   -- Get_IPSR --
+   --------------
+
+   function Get_IPSR return A0B.ARMv7M.Exception_Number'Base is
+   begin
+      return Result : A0B.ARMv7M.Exception_Number'Base do
+         System.Machine_Code.Asm
+           (Template => "mrs %0, ipsr",
+            Outputs  =>
+              A0B.ARMv7M.Exception_Number'Base'Asm_Output ("=r", Result),
+            Volatile => True);
+      end return;
+   end Get_IPSR;
+
    -------------
    -- Get_MSP --
    -------------

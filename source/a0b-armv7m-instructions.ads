@@ -136,6 +136,13 @@ is
    --
    --  Assigns the given value to the Process Stack Pointer (PSP).
 
+   function Get_IPSR return A0B.ARMv7M.Exception_Number'Base
+     with Inline_Always;
+   --  Get Interrupt Program Status Register
+   --
+   --  Returns the current value of the Interrupt Program Status Register
+   --  (IPSR).
+
    function Reverse_Bits
      (Value : A0B.Types.Unsigned_32) return A0B.Types.Unsigned_32
         with Inline_Always;
